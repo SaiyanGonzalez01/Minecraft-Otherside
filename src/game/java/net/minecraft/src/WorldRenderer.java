@@ -210,7 +210,7 @@ public class WorldRenderer {
 	}
 
 	public boolean skipAllRenderPasses() {
-		return !this.isInitialized ? false : this.skipRenderPass[0] && this.skipRenderPass[1];
+		return !this.isInitialized ? false : this.skipRenderPass[0] && this.skipRenderPass[1] && !this.needsUpdate;
 	}
 
 	public void markDirty() {

@@ -3,8 +3,9 @@ package net.minecraft.src;
 import net.lax1dude.eaglercraft.opengl.GlStateManager;
 
 public class RenderHelper {
-	private static final Vec3D LIGHT0_POS = (new Vec3D(0.20000000298023224D, 1.0D, -0.699999988079071D)).normalize();
-	private static final Vec3D LIGHT1_POS = (new Vec3D(-0.20000000298023224D, 1.0D, 0.699999988079071D)).normalize();
+	private static final Vec3D_112 LIGHT0_POS = (new Vec3D_112(0.20000000298023224D, 1.0D, -0.699999988079071D)).normalize();
+	private static final Vec3D_112 LIGHT1_POS = (new Vec3D_112(-0.20000000298023224D, 1.0D, 0.699999988079071D)).normalize();
+	
 	static boolean init = false;
 
 	public static void disableStandardItemLighting() {

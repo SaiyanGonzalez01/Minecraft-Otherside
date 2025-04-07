@@ -357,6 +357,7 @@ public class EntityRenderer {
 			this.mc.renderGlobal.clipRenderersByFrustrum(var12, var1);
 			this.mc.renderGlobal.updateRenderers(var2, false);
 			this.setupFog(0);
+			GL11.glEnable(GL11.GL_FOG);
 			GlStateManager.bindTexture(this.mc.renderEngine.getTexture("/terrain.png"));
 			RenderHelper.disableStandardItemLighting();
 			var3.sortAndRender(var2, 0, (double)var1);

@@ -212,18 +212,18 @@ public class RenderGlobal implements IWorldAccess {
 		for(var4 = 0; var4 < this.renderChunksWide; ++var4) {
 			for(int var5 = 0; var5 < this.renderChunksTall; ++var5) {
 				for(int var6 = 0; var6 < this.renderChunksDeep; ++var6) {
-					if(this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4] != null) {
+					int index = (var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4;
+					if(this.worldRenderers[index] != null) {
 						this.tileEntities.removeAll(this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4].tileEntityRenderers);
 					}
-
-					this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4] = new WorldRenderer(this.theWorld, this.tileEntities, var4 * 16, var5 * 16, var6 * 16, 16, this.glRenderListBase + var2);
-					this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4].isWaitingOnOcclusionQuery = false;
-					this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4].isVisible = true;
-					this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4].isInFrustum = true;
-					this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4].chunkIndex = var3++;
-					this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4].markDirty();
-					this.sortedWorldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4] = this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4];
-					this.worldRenderersToUpdate.add(this.worldRenderers[(var6 * this.renderChunksTall + var5) * this.renderChunksWide + var4]);
+					WorldRenderer wr = (this.worldRenderers[index] = new WorldRenderer(this.theWorld, this.tileEntities, var4 * 16, var5 * 16, var6 * 16, 16, this.glRenderListBase + var2));
+					wr.isWaitingOnOcclusionQuery = false;
+					wr.isVisible = true;
+					wr.isInFrustum = true;
+					wr.chunkIndex = var3++;
+					wr.markDirty();
+					this.sortedWorldRenderers[index] = wr;
+					this.worldRenderersToUpdate.add(wr);
 					var2 += 3;
 				}
 			}
