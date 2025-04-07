@@ -2,6 +2,8 @@ package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
 
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
+
 public class RenderFallingSand extends Render {
 	private RenderBlocks sandRenderBlocks = new RenderBlocks();
 
@@ -15,9 +17,9 @@ public class RenderFallingSand extends Render {
 		this.loadTexture("/terrain.png");
 		Block var10 = Block.blocksList[var1.blockID];
 		World var11 = var1.getWorld();
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
 		this.sandRenderBlocks.renderBlockFallingSand(var10, var11, MathHelper.floor_double(var1.posX), MathHelper.floor_double(var1.posY), MathHelper.floor_double(var1.posZ));
-		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
 		GL11.glPopMatrix();
 	}
 

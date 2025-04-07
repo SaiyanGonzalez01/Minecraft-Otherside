@@ -1,14 +1,9 @@
 package net.minecraft.src;
 
 import java.io.File;
-import paulscode.sound.SoundSystem;
-import paulscode.sound.SoundSystemConfig;
-import paulscode.sound.codecs.CodecJOrbis;
-import paulscode.sound.codecs.CodecWav;
-import paulscode.sound.libraries.LibraryLWJGLOpenAL;
 
 public class SoundManager {
-	private SoundSystem sndSystem;
+	//private SoundSystem sndSystem;
 	private SoundPool soundPoolSounds = new SoundPool();
 	private SoundPool soundPoolMusic = new SoundPool();
 	private int latestSoundID = 0;
@@ -30,10 +25,10 @@ public class SoundManager {
 			this.options.sound = false;
 			this.options.music = false;
 			this.options.saveOptions();
-			SoundSystemConfig.addLibrary(LibraryLWJGLOpenAL.class);
-			SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
-			SoundSystemConfig.setCodec("wav", CodecWav.class);
-			this.sndSystem = new SoundSystem();
+			//SoundSystemConfig.addLibrary(LibraryLWJGLOpenAL.class);
+			//SoundSystemConfig.setCodec("ogg", CodecJOrbis.class);
+			//SoundSystemConfig.setCodec("wav", CodecWav.class);
+			//this.sndSystem = new SoundSystem();
 			this.options.sound = var1;
 			this.options.music = var2;
 			this.options.saveOptions();
@@ -49,16 +44,16 @@ public class SoundManager {
 			this.tryToSetLibraryAndCodecs();
 		}
 
-		if(!this.options.music) {
-			this.sndSystem.stop("BgMusic");
-		}
+		//if(!this.options.music) {
+			//this.sndSystem.stop("BgMusic");
+		//}
 
 	}
 
 	public void closeMinecraft() {
-		if(this.loaded) {
-			this.sndSystem.cleanup();
-		}
+		//if(this.loaded) {
+			//this.sndSystem.cleanup();
+		//}
 
 	}
 
@@ -86,8 +81,8 @@ public class SoundManager {
 				float var17 = -var11 * var13;
 				float var18 = -var12 * var14;
 				float var20 = -var11 * var14;
-				this.sndSystem.setListenerPosition((float)var5, (float)var7, (float)var9);
-				this.sndSystem.setListenerOrientation(var15, var14, var17, var18, var13, var20);
+				//this.sndSystem.setListenerPosition((float)var5, (float)var7, (float)var9);
+				//this.sndSystem.setListenerOrientation(var15, var14, var17, var18, var13, var20);
 			}
 		}
 	}
@@ -103,14 +98,14 @@ public class SoundManager {
 					var9 *= var5;
 				}
 
-				this.sndSystem.newSource(var5 > 1.0F, var8, var7.soundUrl, var7.soundName, false, var2, var3, var4, 2, var9);
-				this.sndSystem.setPitch(var8, var6);
+				//this.sndSystem.newSource(var5 > 1.0F, var8, var7.soundUrl, var7.soundName, false, var2, var3, var4, 2, var9);
+				//this.sndSystem.setPitch(var8, var6);
 				if(var5 > 1.0F) {
 					var5 = 1.0F;
 				}
 
-				this.sndSystem.setVolume(var8, var5);
-				this.sndSystem.play(var8);
+				//this.sndSystem.setVolume(var8, var5);
+				//this.sndSystem.play(var8);
 			}
 
 		}
@@ -122,15 +117,15 @@ public class SoundManager {
 			if(var4 != null) {
 				this.latestSoundID = (this.latestSoundID + 1) % 256;
 				String var5 = "sound_" + this.latestSoundID;
-				this.sndSystem.newSource(false, var5, var4.soundUrl, var4.soundName, false, 0.0F, 0.0F, 0.0F, 0, 0.0F);
+				//this.sndSystem.newSource(false, var5, var4.soundUrl, var4.soundName, false, 0.0F, 0.0F, 0.0F, 0, 0.0F);
 				if(var2 > 1.0F) {
 					var2 = 1.0F;
 				}
 
 				var2 *= 0.25F;
-				this.sndSystem.setPitch(var5, var3);
-				this.sndSystem.setVolume(var5, var2);
-				this.sndSystem.play(var5);
+				//this.sndSystem.setPitch(var5, var3);
+				//this.sndSystem.setVolume(var5, var2);
+				//this.sndSystem.play(var5);
 			}
 
 		}

@@ -3,7 +3,6 @@ package net.minecraft.src;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 public abstract class GuiContainer extends GuiScreen {
 	private static RenderItem itemRenderer = new RenderItem();
@@ -24,7 +23,7 @@ public abstract class GuiContainer extends GuiScreen {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)var4, (float)var5, 0.0F);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glEnable(GL11.GL_RESCALE_NORMAL);
 
 		for(int var6 = 0; var6 < this.inventorySlots.size(); ++var6) {
 			Slot var7 = (Slot)this.inventorySlots.get(var6);
@@ -46,7 +45,7 @@ public abstract class GuiContainer extends GuiScreen {
 			itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, this.draggedItemStack, var1 - var4 - 8, var2 - var5 - 8);
 		}
 
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(GL11.GL_RESCALE_NORMAL);
 		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glDisable(GL11.GL_DEPTH_TEST);

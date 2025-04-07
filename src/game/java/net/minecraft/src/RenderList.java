@@ -1,7 +1,8 @@
 package net.minecraft.src;
 
-import java.nio.IntBuffer;
 import org.lwjgl.opengl.GL11;
+
+import net.lax1dude.eaglercraft.internal.buffer.IntBuffer;
 
 public class RenderList {
 	private int posX;
@@ -46,7 +47,7 @@ public class RenderList {
 
 			if(this.buffer.remaining() > 0) {
 				GL11.glPushMatrix();
-				GL11.glTranslatef((float)this.posX - this.playerPosX, (float)this.posY - this.playerPosY, (float)this.posZ - this.playerPosZ);
+				GL11.glTranslatef(this.posX - this.playerPosX, this.posY - this.playerPosY, this.posZ - this.playerPosZ);
 				GL11.glCallLists(this.buffer);
 				GL11.glPopMatrix();
 			}

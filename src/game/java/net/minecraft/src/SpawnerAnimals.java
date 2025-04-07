@@ -3,9 +3,9 @@ package net.minecraft.src;
 public class SpawnerAnimals {
 	private int maxSpawns;
 	private Class entityType;
-	private Class[] entities;
+	private EntityConstructor[] entities;
 
-	public SpawnerAnimals(int var1, Class var2, Class[] var3) {
+	public SpawnerAnimals(int var1, Class var2, EntityConstructor[] var3) {
 		this.maxSpawns = var1;
 		this.entityType = var2;
 		this.entities = var3;
@@ -76,7 +76,7 @@ public class SpawnerAnimals {
 
 						EntityLiving var32;
 						try {
-							var32 = (EntityLiving)this.entities[var8].getConstructor(new Class[]{World.class}).newInstance(new Object[]{var1});
+							var32 = this.entities[var8].createEntity(var1);
 						} catch (Exception var30) {
 							var30.printStackTrace();
 							return var5;
@@ -93,5 +93,9 @@ public class SpawnerAnimals {
 
 			return var5;
 		}
+	}
+	
+	public interface EntityConstructor<T extends EntityLiving> {
+		T createEntity(World world);
 	}
 }

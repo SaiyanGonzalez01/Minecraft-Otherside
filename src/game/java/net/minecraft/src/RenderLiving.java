@@ -1,7 +1,8 @@
 package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
 
 public class RenderLiving extends Render {
 	protected ModelBase mainModel;
@@ -18,7 +19,7 @@ public class RenderLiving extends Render {
 
 	public void a(EntityLiving var1, double var2, double var4, double var6, float var8, float var9) {
 		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		GL11.glDisable(RealOpenGLEnums.GL_CULL_FACE);
 
 		try {
 			float var10 = var1.prevRenderYawOffset + (var1.renderYawOffset - var1.prevRenderYawOffset) * var9;
@@ -39,7 +40,7 @@ public class RenderLiving extends Render {
 			}
 
 			var14 = 1.0F / 16.0F;
-			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+			GL11.glEnable(RealOpenGLEnums.GL_RESCALE_NORMAL);
 			GL11.glScalef(-1.0F, -1.0F, 1.0F);
 			this.preRenderCallback(var1, var9);
 			GL11.glTranslatef(0.0F, -24.0F * var14 - 0.0078125F, 0.0F);
@@ -50,14 +51,14 @@ public class RenderLiving extends Render {
 			}
 
 			this.loadDownloadableImageTexture(var1.skinUrl, var1.getTexture());
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
+			GL11.glEnable(RealOpenGLEnums.GL_ALPHA_TEST);
 			this.mainModel.render(var16, var15, var13, var11 - var10, var12, var14);
 
 			for(int var17 = 0; var17 < 4; ++var17) {
 				if(this.shouldRenderPass(var1, var17)) {
 					this.renderPassModel.render(var16, var15, var13, var11 - var10, var12, var14);
-					GL11.glDisable(GL11.GL_BLEND);
-					GL11.glEnable(GL11.GL_ALPHA_TEST);
+					GL11.glDisable(RealOpenGLEnums.GL_BLEND);
+					GL11.glEnable(RealOpenGLEnums.GL_ALPHA_TEST);
 				}
 			}
 
@@ -65,10 +66,10 @@ public class RenderLiving extends Render {
 			int var18 = this.getColorMultiplier(var1, var25, var9);
 			if((var18 >> 24 & 255) > 0 || var1.hurtTime > 0 || var1.deathTime > 0) {
 				GL11.glDisable(GL11.GL_TEXTURE_2D);
-				GL11.glDisable(GL11.GL_ALPHA_TEST);
-				GL11.glEnable(GL11.GL_BLEND);
-				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				GL11.glDepthFunc(GL11.GL_EQUAL);
+				GL11.glDisable(RealOpenGLEnums.GL_ALPHA_TEST);
+				GL11.glEnable(RealOpenGLEnums.GL_BLEND);
+				GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
+				GL11.glDepthFunc(RealOpenGLEnums.GL_EQUAL);
 				if(var1.hurtTime > 0 || var1.deathTime > 0) {
 					GL11.glColor4f(var25, 0.0F, 0.0F, 0.4F);
 					this.mainModel.render(var16, var15, var13, var11 - var10, var12, var14);
@@ -97,18 +98,18 @@ public class RenderLiving extends Render {
 					}
 				}
 
-				GL11.glDepthFunc(GL11.GL_LEQUAL);
-				GL11.glDisable(GL11.GL_BLEND);
-				GL11.glEnable(GL11.GL_ALPHA_TEST);
+				GL11.glDepthFunc(RealOpenGLEnums.GL_LEQUAL);
+				GL11.glDisable(RealOpenGLEnums.GL_BLEND);
+				GL11.glEnable(RealOpenGLEnums.GL_ALPHA_TEST);
 				GL11.glEnable(GL11.GL_TEXTURE_2D);
 			}
 
-			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+			GL11.glDisable(RealOpenGLEnums.GL_RESCALE_NORMAL);
 		} catch (Exception var24) {
 			var24.printStackTrace();
 		}
 
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glEnable(RealOpenGLEnums.GL_CULL_FACE);
 		GL11.glPopMatrix();
 	}
 

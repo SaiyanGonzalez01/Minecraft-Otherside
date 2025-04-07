@@ -4,15 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
-	public static List registeredBlocksList = new ArrayList();
-	public String username;
-	public String sessionId;
-	public String mpPassParameter;
-
-	public Session(String var1, String var2) {
-		this.username = var1;
-		this.sessionId = var2;
-	}
+	public static List<Block> registeredBlocksList = new ArrayList<Block>();
 
 	static {
 		registeredBlocksList.add(Block.stone);

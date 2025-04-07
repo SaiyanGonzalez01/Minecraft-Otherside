@@ -15,11 +15,7 @@ public class EntityPlayerSP extends EntityPlayer {
 			var2.playerEntity = this;
 		}
 
-		if(var3 != null && var3.username != null && var3.username.length() > 0) {
-			this.skinUrl = "http://www.minecraft.net/skin/" + var3.username + ".png";
-		}
-
-		this.username = var3.username;
+		this.username = "Player";
 	}
 
 	public void updatePlayerActionState() {

@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 import java.util.ArrayList;
-import java.util.Random;
+import net.lax1dude.eaglercraft.Random;
 
 public class Block {
 	public static final StepSound soundPowderFootstep = new StepSound("stone", 1.0F, 1.0F);
@@ -81,7 +81,7 @@ public class Block {
 	public static final Block tilledField = (new BlockFarmland(60)).setHardness(0.6F).setStepSound(soundGravelFootstep);
 	public static final Block stoneOvenIdle = (new BlockFurnace(61, false)).setHardness(3.5F).setStepSound(soundStoneFootstep);
 	public static final Block stoneOvenActive = (new BlockFurnace(62, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(14.0F / 16.0F);
-	public static final Block signStanding = (new BlockSign(63, TileEntitySign.class, Item.sign.shiftedIndex)).setHardness(1.0F).setStepSound(soundWoodFootstep);
+	public static final Block signStanding = (new BlockSign(63, Item.sign.shiftedIndex)).setHardness(1.0F).setStepSound(soundWoodFootstep);
 	public static final Block doorWood = (new BlockDoor(64)).setHardness(3.0F).setStepSound(soundWoodFootstep);
 	public static final Block ladder = (new BlockLadder(65, 83)).setHardness(0.4F).setStepSound(soundWoodFootstep);
 	public static final Block minecartTrack = (new BlockMinecartTrack(66, 128)).setHardness(1.0F).setStepSound(soundMetalFootstep);

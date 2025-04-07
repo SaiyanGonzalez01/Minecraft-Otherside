@@ -1,11 +1,12 @@
 package net.minecraft.src;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import org.lwjgl.input.Keyboard;
+
+import net.lax1dude.eaglercraft.Keyboard;
+import net.lax1dude.eaglercraft.internal.vfs2.VFile2;
 
 public class GameSettings {
 	private static final String[] RENDER_DISTANCES = new String[]{"FAR", "NORMAL", "SHORT", "TINY"};
@@ -32,14 +33,14 @@ public class GameSettings {
 	public KeyBinding keyBindLoad = new KeyBinding("Load location", 19);
 	public KeyBinding[] keyBindings = new KeyBinding[]{this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindToggleFog, this.keyBindSave, this.keyBindLoad};
 	protected Minecraft mc;
-	private File optionsFile;
+	private VFile2 optionsFile;
 	public int numberOfOptions = 10;
 	public int difficulty = 2;
 	public boolean thirdPersonView = false;
 
-	public GameSettings(Minecraft var1, File var2) {
+	public GameSettings(Minecraft var1) {
 		this.mc = var1;
-		this.optionsFile = new File(var2, "options.txt");
+		this.optionsFile = new VFile2("options.txt");
 		this.loadOptions();
 	}
 
@@ -110,7 +111,7 @@ public class GameSettings {
 				return;
 			}
 
-			BufferedReader var1 = new BufferedReader(new FileReader(this.optionsFile));
+			BufferedReader var1 = new BufferedReader(new InputStreamReader(this.optionsFile.getInputStream()));
 			String var2 = "";
 
 			while(true) {
@@ -176,7 +177,8 @@ public class GameSettings {
 
 	public void saveOptions() {
 		try {
-			PrintWriter var1 = new PrintWriter(new FileWriter(this.optionsFile));
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			PrintWriter var1 = new PrintWriter(baos);
 			var1.println("music:" + this.music);
 			var1.println("sound:" + this.sound);
 			var1.println("invertYMouse:" + this.invertMouse);
@@ -193,6 +195,7 @@ public class GameSettings {
 			}
 
 			var1.close();
+			this.optionsFile.setAllBytes(baos.toByteArray());
 		} catch (Exception var3) {
 			System.out.println("Failed to save options");
 			var3.printStackTrace();

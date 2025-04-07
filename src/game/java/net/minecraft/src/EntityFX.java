@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+
 public class EntityFX extends Entity {
 	protected int particleTextureIndex;
 	protected float particleTextureJitterX;
@@ -70,7 +72,7 @@ public class EntityFX extends Entity {
 
 	}
 
-	public void renderParticle(Tessellator var1, float var2, float var3, float var4, float var5, float var6, float var7) {
+	public void renderParticle(BufferBuilder var1, float var2, float var3, float var4, float var5, float var6, float var7) {
 		float var8 = (float)(this.particleTextureIndex % 16) / 16.0F;
 		float var9 = var8 + 0.999F / 16.0F;
 		float var10 = (float)(this.particleTextureIndex / 16) / 16.0F;
@@ -80,11 +82,10 @@ public class EntityFX extends Entity {
 		float var14 = (float)(this.prevPosY + (this.posY - this.prevPosY) * (double)var2 - interpPosY);
 		float var15 = (float)(this.prevPosZ + (this.posZ - this.prevPosZ) * (double)var2 - interpPosZ);
 		float var16 = this.getEntityBrightness(var2);
-		var1.setColorOpaque_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16);
-		var1.addVertexWithUV((double)(var13 - var3 * var12 - var6 * var12), (double)(var14 - var4 * var12), (double)(var15 - var5 * var12 - var7 * var12), (double)var8, (double)var11);
-		var1.addVertexWithUV((double)(var13 - var3 * var12 + var6 * var12), (double)(var14 + var4 * var12), (double)(var15 - var5 * var12 + var7 * var12), (double)var8, (double)var10);
-		var1.addVertexWithUV((double)(var13 + var3 * var12 + var6 * var12), (double)(var14 + var4 * var12), (double)(var15 + var5 * var12 + var7 * var12), (double)var9, (double)var10);
-		var1.addVertexWithUV((double)(var13 + var3 * var12 - var6 * var12), (double)(var14 - var4 * var12), (double)(var15 + var5 * var12 - var7 * var12), (double)var9, (double)var11);
+		var1.posUV((double)(var13 - var3 * var12 - var6 * var12), (double)(var14 - var4 * var12), (double)(var15 - var5 * var12 - var7 * var12), (double)var8, (double)var11).setColorOpaque_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16).endVertex();
+		var1.posUV((double)(var13 - var3 * var12 + var6 * var12), (double)(var14 + var4 * var12), (double)(var15 - var5 * var12 + var7 * var12), (double)var8, (double)var10).setColorOpaque_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16).endVertex();
+		var1.posUV((double)(var13 + var3 * var12 + var6 * var12), (double)(var14 + var4 * var12), (double)(var15 + var5 * var12 + var7 * var12), (double)var9, (double)var10).setColorOpaque_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16).endVertex();
+		var1.posUV((double)(var13 + var3 * var12 - var6 * var12), (double)(var14 - var4 * var12), (double)(var15 + var5 * var12 - var7 * var12), (double)var9, (double)var11).setColorOpaque_F(this.particleRed * var16, this.particleGreen * var16, this.particleBlue * var16).endVertex();
 	}
 
 	public int getFXLayer() {

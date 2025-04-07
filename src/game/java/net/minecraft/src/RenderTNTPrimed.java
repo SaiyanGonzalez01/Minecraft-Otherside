@@ -2,6 +2,8 @@ package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
 
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
+
 public class RenderTNTPrimed extends Render {
 	private RenderBlocks blockRenderer = new RenderBlocks();
 
@@ -33,15 +35,15 @@ public class RenderTNTPrimed extends Render {
 		this.loadTexture("/terrain.png");
 		this.blockRenderer.renderBlockOnInventory(Block.tnt);
 		if(var1.fuse / 5 % 2 == 0) {
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_DST_ALPHA);
+			GL11.glDisable(RealOpenGLEnums.GL_TEXTURE_2D);
+			GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
+			GL11.glEnable(RealOpenGLEnums.GL_BLEND);
+			GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_DST_ALPHA);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, var10);
 			this.blockRenderer.renderBlockOnInventory(Block.tnt);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_LIGHTING);
+			GL11.glDisable(RealOpenGLEnums.GL_BLEND);
+			GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_TEXTURE_2D);
 		}
 

@@ -2,9 +2,15 @@ package net.minecraft.src;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import net.lax1dude.eaglercraft.Random;
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
+
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import net.lax1dude.eaglercraft.EagRuntime;
+import net.peyton.eagler.minecraft.FontRenderer;
 
 public class GuiIngame extends Gui {
 	private static RenderItem itemRenderer = new RenderItem();
@@ -119,7 +125,7 @@ public class GuiIngame extends Gui {
 		}
 
 		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glEnable(GL11.GL_RESCALE_NORMAL);
 		GL11.glPushMatrix();
 		GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
 		RenderHelper.enableStandardItemLighting();
@@ -132,15 +138,15 @@ public class GuiIngame extends Gui {
 		}
 
 		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(GL11.GL_RESCALE_NORMAL);
 		if(this.mc.gameSettings.showFPS) {
 			var8.drawStringWithShadow("Minecraft Infdev (" + this.mc.debug + ")", 2, 2, 16777215);
 			var8.drawStringWithShadow(this.mc.debugInfoRenders(), 2, 12, 16777215);
 			var8.drawStringWithShadow(this.mc.getEntityDebug(), 2, 22, 16777215);
 			var8.drawStringWithShadow(this.mc.debugInfoEntities(), 2, 32, 16777215);
-			long var22 = Runtime.getRuntime().maxMemory();
-			long var26 = Runtime.getRuntime().totalMemory();
-			long var27 = Runtime.getRuntime().freeMemory();
+			long var22 = EagRuntime.maxMemory();
+			long var26 = EagRuntime.totalMemory();
+			long var27 = EagRuntime.freeMemory();
 			long var19 = var26 - var27;
 			String var21 = "Used memory: " + var19 * 100L / var22 + "% (" + var19 / 1024L / 1024L + "MB) of " + var22 / 1024L / 1024L + "MB";
 			this.drawString(var8, var21, var6 - var8.getStringWidth(var21) - 2, 2, 14737632);
@@ -177,13 +183,14 @@ public class GuiIngame extends Gui {
 		GL11.glBlendFunc(GL11.GL_ZERO, GL11.GL_ONE_MINUS_SRC_COLOR);
 		GL11.glColor4f(this.prevVignetteBrightness, this.prevVignetteBrightness, this.prevVignetteBrightness, 1.0F);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/misc/vignette.png"));
-		Tessellator var4 = Tessellator.instance;
-		var4.startDrawingQuads();
-		var4.addVertexWithUV(0.0D, (double)var3, -90.0D, 0.0D, 1.0D);
-		var4.addVertexWithUV((double)var2, (double)var3, -90.0D, 1.0D, 1.0D);
-		var4.addVertexWithUV((double)var2, 0.0D, -90.0D, 1.0D, 0.0D);
-		var4.addVertexWithUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D);
-		var4.draw();
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder var4 = tess.getWorldRenderer();
+		var4.begin(7, VertexFormat.POSITION_TEX);
+		var4.posUV(0.0D, (double)var3, -90.0D, 0.0D, 1.0D).endVertex();
+		var4.posUV((double)var2, (double)var3, -90.0D, 1.0D, 1.0D).endVertex();
+		var4.posUV((double)var2, 0.0D, -90.0D, 1.0D, 0.0D).endVertex();
+		var4.posUV(0.0D, 0.0D, -90.0D, 0.0D, 0.0D).endVertex();
+		tess.draw();
 		GL11.glDepthMask(true);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

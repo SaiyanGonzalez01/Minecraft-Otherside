@@ -1,6 +1,7 @@
 package net.minecraft.src;
 
-import org.lwjgl.opengl.GL11;
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.GlStateManager;
 
 public class EntityPickupFX extends EntityFX {
 	private Entity entityToPickUp;
@@ -17,7 +18,7 @@ public class EntityPickupFX extends EntityFX {
 		this.yOffs = var4;
 	}
 
-	public void renderParticle(Tessellator var1, float var2, float var3, float var4, float var5, float var6, float var7) {
+	public void renderParticle(BufferBuilder var1, float var2, float var3, float var4, float var5, float var6, float var7) {
 		float var8 = ((float)this.age + var2) / (float)this.maxAge;
 		var8 *= var8;
 		double var9 = this.entityToPickUp.posX;
@@ -36,7 +37,7 @@ public class EntityPickupFX extends EntityFX {
 		var21 -= interpPosX;
 		var23 -= interpPosY;
 		var25 -= interpPosZ;
-		GL11.glColor4f(var30, var30, var30, 1.0F);
+		GlStateManager.color(var30, var30, var30, 1.0F);
 		RenderManager.instance.renderEntityWithPosYaw(this.entityToPickUp, (double)((float)var21), (double)((float)var23), (double)((float)var25), this.entityToPickUp.rotationYaw, var2);
 	}
 

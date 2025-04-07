@@ -1,8 +1,13 @@
 package net.minecraft.src;
 
-import java.util.Random;
+import net.lax1dude.eaglercraft.Random;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
+import net.peyton.eagler.minecraft.FontRenderer;
 
 public class RenderItem extends Render {
 	private RenderBlocks renderBlocks = new RenderBlocks();
@@ -33,7 +38,7 @@ public class RenderItem extends Render {
 		}
 
 		GL11.glTranslatef((float)var2, (float)var4 + var11, (float)var6);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glEnable(RealOpenGLEnums.GL_RESCALE_NORMAL);
 		float var16;
 		float var17;
 		float var18;
@@ -68,7 +73,8 @@ public class RenderItem extends Render {
 				this.loadTexture("/gui/items.png");
 			}
 
-			Tessellator var15 = Tessellator.instance;
+			Tessellator tess = Tessellator.getInstance();
+			BufferBuilder var15 = tess.getWorldRenderer();
 			var16 = (float)(var14 % 16 * 16 + 0) / 256.0F;
 			var17 = (float)(var14 % 16 * 16 + 16) / 256.0F;
 			var18 = (float)(var14 / 16 * 16 + 0) / 256.0F;
@@ -87,18 +93,17 @@ public class RenderItem extends Render {
 				}
 
 				GL11.glRotatef(180.0F - this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-				var15.startDrawingQuads();
-				var15.setNormal(0.0F, 1.0F, 0.0F);
-				var15.addVertexWithUV((double)(0.0F - var21), (double)(0.0F - var22), 0.0D, (double)var16, (double)var19);
-				var15.addVertexWithUV((double)(var20 - var21), (double)(0.0F - var22), 0.0D, (double)var17, (double)var19);
-				var15.addVertexWithUV((double)(var20 - var21), (double)(1.0F - var22), 0.0D, (double)var17, (double)var18);
-				var15.addVertexWithUV((double)(0.0F - var21), (double)(1.0F - var22), 0.0D, (double)var16, (double)var18);
-				var15.draw();
+				var15.begin(7, VertexFormat.POSITION_TEX_NORMAL);
+				var15.posUV((double)(0.0F - var21), (double)(0.0F - var22), 0.0D, (double)var16, (double)var19).normal(0.0F, 1.0F, 0.0F).endVertex();
+				var15.posUV((double)(var20 - var21), (double)(0.0F - var22), 0.0D, (double)var17, (double)var19).normal(0.0F, 1.0F, 0.0F).endVertex();
+				var15.posUV((double)(var20 - var21), (double)(1.0F - var22), 0.0D, (double)var17, (double)var18).normal(0.0F, 1.0F, 0.0F).endVertex();
+				var15.posUV((double)(0.0F - var21), (double)(1.0F - var22), 0.0D, (double)var16, (double)var18).normal(0.0F, 1.0F, 0.0F).endVertex();
+				tess.draw();
 				GL11.glPopMatrix();
 			}
 		}
 
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(RealOpenGLEnums.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
 
@@ -118,7 +123,7 @@ public class RenderItem extends Render {
 				this.renderBlocks.renderBlockOnInventory(var7);
 				GL11.glPopMatrix();
 			} else if(var3.getIconIndex() >= 0) {
-				GL11.glDisable(GL11.GL_LIGHTING);
+				GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
 				if(var3.itemID < 256) {
 					var2.bindTexture(var2.getTexture("/terrain.png"));
 				} else {
@@ -126,7 +131,7 @@ public class RenderItem extends Render {
 				}
 
 				this.renderTexturedQuad(var4, var5, var3.getIconIndex() % 16 * 16, var3.getIconIndex() / 16 * 16, 16, 16);
-				GL11.glEnable(GL11.GL_LIGHTING);
+				GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
 			}
 
 		}
@@ -136,55 +141,55 @@ public class RenderItem extends Render {
 		if(var3 != null) {
 			if(var3.stackSize > 1) {
 				String var6 = "" + var3.stackSize;
-				GL11.glDisable(GL11.GL_LIGHTING);
-				GL11.glDisable(GL11.GL_DEPTH_TEST);
+				GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
+				GL11.glDisable(RealOpenGLEnums.GL_DEPTH_TEST);
 				var1.drawStringWithShadow(var6, var4 + 19 - 2 - var1.getStringWidth(var6), var5 + 6 + 3, 16777215);
-				GL11.glEnable(GL11.GL_LIGHTING);
-				GL11.glEnable(GL11.GL_DEPTH_TEST);
+				GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
+				GL11.glEnable(RealOpenGLEnums.GL_DEPTH_TEST);
 			}
 
 			if(var3.itemDmg > 0) {
 				int var11 = 13 - var3.itemDmg * 13 / var3.getMaxDamage();
 				int var7 = 255 - var3.itemDmg * 255 / var3.getMaxDamage();
-				GL11.glDisable(GL11.GL_LIGHTING);
-				GL11.glDisable(GL11.GL_DEPTH_TEST);
+				GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
+				GL11.glDisable(RealOpenGLEnums.GL_DEPTH_TEST);
 				GL11.glDisable(GL11.GL_TEXTURE_2D);
-				Tessellator var8 = Tessellator.instance;
+				BufferBuilder var8 = Tessellator.getInstance().getWorldRenderer();
 				int var9 = 255 - var7 << 16 | var7 << 8;
 				int var10 = (255 - var7) / 4 << 16 | 16128;
 				this.renderQuad(var8, var4 + 2, var5 + 13, 13, 2, 0);
 				this.renderQuad(var8, var4 + 2, var5 + 13, 12, 1, var10);
 				this.renderQuad(var8, var4 + 2, var5 + 13, var11, 1, var9);
 				GL11.glEnable(GL11.GL_TEXTURE_2D);
-				GL11.glEnable(GL11.GL_LIGHTING);
-				GL11.glEnable(GL11.GL_DEPTH_TEST);
+				GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
+				GL11.glEnable(RealOpenGLEnums.GL_DEPTH_TEST);
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			}
 
 		}
 	}
 
-	private void renderQuad(Tessellator var1, int var2, int var3, int var4, int var5, int var6) {
-		var1.startDrawingQuads();
-		var1.setColorOpaque_I(var6);
-		var1.addVertex((double)(var2 + 0), (double)(var3 + 0), 0.0D);
-		var1.addVertex((double)(var2 + 0), (double)(var3 + var5), 0.0D);
-		var1.addVertex((double)(var2 + var4), (double)(var3 + var5), 0.0D);
-		var1.addVertex((double)(var2 + var4), (double)(var3 + 0), 0.0D);
-		var1.draw();
+	private void renderQuad(BufferBuilder var1, int var2, int var3, int var4, int var5, int var6) {
+		var1.begin(7, VertexFormat.POSITION_COLOR);
+		var1.pos((double)(var2 + 0), (double)(var3 + 0), 0.0D).setColorOpaque_I(var6).endVertex();
+		var1.pos((double)(var2 + 0), (double)(var3 + var5), 0.0D).setColorOpaque_I(var6).endVertex();
+		var1.pos((double)(var2 + var4), (double)(var3 + var5), 0.0D).setColorOpaque_I(var6).endVertex();
+		var1.pos((double)(var2 + var4), (double)(var3 + 0), 0.0D).setColorOpaque_I(var6).endVertex();
+		Tessellator.getInstance().draw();
 	}
 
 	public void renderTexturedQuad(int var1, int var2, int var3, int var4, int var5, int var6) {
 		float var7 = 0.0F;
 		float var8 = 0.00390625F;
 		float var9 = 0.00390625F;
-		Tessellator var10 = Tessellator.instance;
-		var10.startDrawingQuads();
-		var10.addVertexWithUV((double)(var1 + 0), (double)(var2 + var6), (double)var7, (double)((float)(var3 + 0) * var8), (double)((float)(var4 + var6) * var9));
-		var10.addVertexWithUV((double)(var1 + var5), (double)(var2 + var6), (double)var7, (double)((float)(var3 + var5) * var8), (double)((float)(var4 + var6) * var9));
-		var10.addVertexWithUV((double)(var1 + var5), (double)(var2 + 0), (double)var7, (double)((float)(var3 + var5) * var8), (double)((float)(var4 + 0) * var9));
-		var10.addVertexWithUV((double)(var1 + 0), (double)(var2 + 0), (double)var7, (double)((float)(var3 + 0) * var8), (double)((float)(var4 + 0) * var9));
-		var10.draw();
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder var10 = tess.getWorldRenderer();
+		var10.begin(7, VertexFormat.POSITION_TEX);
+		var10.posUV((double)(var1 + 0), (double)(var2 + var6), (double)var7, (double)((float)(var3 + 0) * var8), (double)((float)(var4 + var6) * var9)).endVertex();
+		var10.posUV((double)(var1 + var5), (double)(var2 + var6), (double)var7, (double)((float)(var3 + var5) * var8), (double)((float)(var4 + var6) * var9)).endVertex();
+		var10.posUV((double)(var1 + var5), (double)(var2 + 0), (double)var7, (double)((float)(var3 + var5) * var8), (double)((float)(var4 + 0) * var9)).endVertex();
+		var10.posUV((double)(var1 + 0), (double)(var2 + 0), (double)var7, (double)((float)(var3 + 0) * var8), (double)((float)(var4 + 0) * var9)).endVertex();
+		tess.draw();
 	}
 
 	public void doRender(Entity var1, double var2, double var4, double var6, float var8, float var9) {

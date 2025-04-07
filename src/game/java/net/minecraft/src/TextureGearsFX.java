@@ -1,8 +1,9 @@
 package net.minecraft.src;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+
+import net.lax1dude.eaglercraft.opengl.ImageData;
 
 public class TextureGearsFX extends TextureFX {
 	private int gearRotation = 0;
@@ -16,11 +17,11 @@ public class TextureGearsFX extends TextureFX {
 		this.gearRotation = 2;
 
 		try {
-			BufferedImage var2 = ImageIO.read(TextureGearsFX.class.getResource("/misc/gear.png"));
+			ImageData var2 = ImageData.loadImageFile("/misc/gear.png");
 			var2.getRGB(0, 0, 32, 32, this.gearColor, 0, 32);
-			var2 = ImageIO.read(TextureGearsFX.class.getResource("/misc/gearmiddle.png"));
+			var2 = ImageData.loadImageFile("/misc/gearmiddle.png");
 			var2.getRGB(0, 0, 16, 16, this.gearMiddleColor, 0, 16);
-		} catch (IOException var3) {
+		} catch (Exception var3) {
 			var3.printStackTrace();
 		}
 

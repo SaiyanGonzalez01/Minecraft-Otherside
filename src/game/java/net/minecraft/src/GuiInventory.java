@@ -1,7 +1,6 @@
 package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 public class GuiInventory extends GuiContainer {
 	private InventoryCrafting craftingInventory = new InventoryCrafting(this, 2, 2);
@@ -86,7 +85,7 @@ public class GuiInventory extends GuiContainer {
 		int var3 = (this.width - this.xSize) / 2;
 		int var4 = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(var3, var4, 0, 0, this.xSize, this.ySize);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glEnable(GL11.GL_RESCALE_NORMAL);
 		GL11.glEnable(GL11.GL_COLOR_MATERIAL);
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)(var3 + 51), (float)(var4 + 75), 50.0F);
@@ -112,6 +111,6 @@ public class GuiInventory extends GuiContainer {
 		this.mc.thePlayer.rotationPitch = var8;
 		GL11.glPopMatrix();
 		RenderHelper.disableStandardItemLighting();
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(GL11.GL_RESCALE_NORMAL);
 	}
 }

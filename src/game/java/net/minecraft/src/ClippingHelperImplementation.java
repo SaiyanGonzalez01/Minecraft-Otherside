@@ -1,7 +1,8 @@
 package net.minecraft.src;
 
-import java.nio.FloatBuffer;
-import org.lwjgl.opengl.GL11;
+import net.lax1dude.eaglercraft.internal.buffer.FloatBuffer;
+import net.lax1dude.eaglercraft.opengl.EaglercraftGPU;
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
 
 public class ClippingHelperImplementation extends ClippingHelper {
 	private static ClippingHelperImplementation instance = new ClippingHelperImplementation();
@@ -26,8 +27,8 @@ public class ClippingHelperImplementation extends ClippingHelper {
 		this.projectionMatrixBuffer.clear();
 		this.modelviewMatrixBuffer.clear();
 		this.floatBuffer.clear();
-		GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, this.projectionMatrixBuffer);
-		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, this.modelviewMatrixBuffer);
+		EaglercraftGPU.getFloat(RealOpenGLEnums.GL_PROJECTION_MATRIX, this.projectionMatrixBuffer);
+		EaglercraftGPU.getFloat(RealOpenGLEnums.GL_MODELVIEW_MATRIX, this.modelviewMatrixBuffer);
 		this.projectionMatrixBuffer.flip().limit(16);
 		this.projectionMatrixBuffer.get(this.projectionMatrix);
 		this.modelviewMatrixBuffer.flip().limit(16);

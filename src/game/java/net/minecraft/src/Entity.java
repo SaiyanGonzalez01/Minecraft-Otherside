@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 import java.util.List;
-import java.util.Random;
+import net.lax1dude.eaglercraft.Random;
 
 public abstract class Entity {
 	public boolean preventEntitySpawning = false;
@@ -725,4 +725,21 @@ public abstract class Entity {
 			var1.riddenByEntity = this;
 		}
 	}
+	
+	public void turn(float var1, float var2) {
+	      float var3 = this.rotationPitch;
+	      float var4 = this.rotationYaw;
+	      this.rotationYaw = (float)((double)this.rotationYaw + (double)var1 * 0.15D);
+	      this.rotationPitch = (float)((double)this.rotationPitch - (double)var2 * 0.15D);
+	      if(this.rotationPitch < -90.0F) {
+	         this.rotationPitch = -90.0F;
+	      }
+
+	      if(this.rotationPitch > 90.0F) {
+	         this.rotationPitch = 90.0F;
+	      }
+
+	      this.prevRotationPitch += this.rotationPitch - var3;
+	      this.prevRotationYaw += this.rotationYaw - var4;
+	   }
 }

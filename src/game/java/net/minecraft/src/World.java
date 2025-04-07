@@ -1,12 +1,11 @@
 package net.minecraft.src;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
+import net.lax1dude.eaglercraft.Random;
+import net.lax1dude.eaglercraft.internal.vfs2.VFile2;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -36,7 +35,7 @@ public class World implements IBlockAccess {
 	public boolean isNewWorld;
 	private List worldAccesses;
 	private IChunkProvider chunkProvider;
-	private File saveDirectory;
+	private VFile2 saveDirectory;
 	public long randomSeed;
 	private NBTTagCompound nbtCompoundPlayer;
 	public long setSizeOnDisk;
@@ -44,52 +43,39 @@ public class World implements IBlockAccess {
 	private ArrayList collidingBoundingBoxes;
 	private List entitiesWithinAABBExcludingEntity;
 
-	public static NBTTagCompound getLevelData(File var0, String var1) {
-		File var2 = new File(var0, "saves");
-		File var3 = new File(var2, var1);
+	public static NBTTagCompound getLevelData(String var1) {
+		VFile2 var3 = new VFile2("saves", var1, "level.dat");
 		if(!var3.exists()) {
 			return null;
 		} else {
-			File var4 = new File(var3, "level.dat");
-			if(var4.exists()) {
-				try {
-					NBTTagCompound var5 = CompressedStreamTools.readCompressed(new FileInputStream(var4));
-					NBTTagCompound var6 = var5.getCompoundTag("Data");
-					return var6;
-				} catch (Exception var7) {
-					var7.printStackTrace();
-				}
+			try {
+				NBTTagCompound var5 = CompressedStreamTools.readCompressed(var3.getInputStream());
+				NBTTagCompound var6 = var5.getCompoundTag("Data");
+				return var6;
+			} catch (Exception var7) {
+				var7.printStackTrace();
 			}
 
 			return null;
 		}
 	}
 
-	public static void deleteWorld(File var0, String var1) {
-		File var2 = new File(var0, "saves");
-		File var3 = new File(var2, var1);
-		if(var3.exists()) {
-			deleteWorldFiles(var3.listFiles());
-			var3.delete();
-		}
-	}
-
-	private static void deleteWorldFiles(File[] var0) {
-		for(int var1 = 0; var1 < var0.length; ++var1) {
-			if(var0[var1].isDirectory()) {
-				deleteWorldFiles(var0[var1].listFiles());
+	public static void deleteWorld(String var1) {
+		VFile2 var2 = new VFile2("saves");
+		VFile2 var3 = new VFile2(var2, var1);
+		VFile2 var4 = new VFile2(var3, "level.dat");
+		if(var4.exists()) {
+			for(VFile2 file : var3.listFiles(true)) {
+				file.delete();
 			}
-
-			var0[var1].delete();
 		}
-
 	}
 
-	public World(File var1, String var2) {
+	public World(String var1, String var2) {
 		this(var1, var2, (new Random()).nextLong());
 	}
 
-	public World(File var1, String var2, long var3) {
+	public World(String var1, String var2, long var3) {
 		this.lightingToUpdate = new ArrayList();
 		this.loadedEntityList = new ArrayList();
 		this.unloadedEntityList = new ArrayList();
@@ -112,14 +98,12 @@ public class World implements IBlockAccess {
 		this.collidingBoundingBoxes = new ArrayList();
 		this.entitiesWithinAABBExcludingEntity = new ArrayList();
 		this.levelName = var2;
-		var1.mkdirs();
-		this.saveDirectory = new File(var1, var2);
-		this.saveDirectory.mkdirs();
-		File var5 = new File(this.saveDirectory, "level.dat");
+		this.saveDirectory = new VFile2(var1, var2);
+		VFile2 var5 = new VFile2(this.saveDirectory, "level.dat");
 		this.isNewWorld = !var5.exists();
 		if(var5.exists()) {
 			try {
-				NBTTagCompound var6 = CompressedStreamTools.readCompressed(new FileInputStream(var5));
+				NBTTagCompound var6 = CompressedStreamTools.readCompressed(var5.getInputStream());
 				NBTTagCompound var7 = var6.getCompoundTag("Data");
 				this.randomSeed = var7.getLong("RandomSeed");
 				this.spawnX = var7.getInteger("SpawnX");
@@ -152,7 +136,7 @@ public class World implements IBlockAccess {
 		this.calculateInitialSkylight();
 	}
 
-	protected IChunkProvider getChunkProvider(File var1) {
+	protected IChunkProvider getChunkProvider(VFile2 var1) {
 		return new ChunkProviderLoadOrGenerate(this, new ChunkLoader(var1, true), new ChunkProviderGenerate(this, this.randomSeed));
 	}
 
@@ -229,10 +213,10 @@ public class World implements IBlockAccess {
 		var2.setTag("Data", var1);
 
 		try {
-			File var3 = new File(this.saveDirectory, "level.dat_new");
-			File var4 = new File(this.saveDirectory, "level.dat_old");
-			File var5 = new File(this.saveDirectory, "level.dat");
-			CompressedStreamTools.writeCompressed(var2, new FileOutputStream(var3));
+			VFile2 var3 = new VFile2(this.saveDirectory, "level.dat_new");
+			VFile2 var4 = new VFile2(this.saveDirectory, "level.dat_old");
+			VFile2 var5 = new VFile2(this.saveDirectory, "level.dat");
+			CompressedStreamTools.writeCompressed(var2, var3.getOutputStream());
 			if(var4.exists()) {
 				var4.delete();
 			}

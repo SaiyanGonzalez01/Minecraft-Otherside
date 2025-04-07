@@ -2,8 +2,11 @@ package net.minecraft.src;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import org.lwjgl.opengl.GL11;
+import net.lax1dude.eaglercraft.Random;
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.GlStateManager;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
 
 public class EffectRenderer {
 	protected World worldObj;
@@ -63,16 +66,17 @@ public class EffectRenderer {
 					var9 = this.renderer.getTexture("/terrain.png");
 				}
 
-				GL11.glBindTexture(GL11.GL_TEXTURE_2D, var9);
-				Tessellator var10 = Tessellator.instance;
-				var10.startDrawingQuads();
+				GlStateManager.bindTexture(var9);
+				Tessellator tess = Tessellator.getInstance();
+				BufferBuilder renderer = tess.getWorldRenderer();
+				renderer.begin(7, VertexFormat.POSITION_TEX_COLOR);
 
 				for(int var11 = 0; var11 < this.fxLayers[var8].size(); ++var11) {
 					EntityFX var12 = (EntityFX)this.fxLayers[var8].get(var11);
-					var12.renderParticle(var10, var2, var3, var7, var4, var5, var6);
+					var12.renderParticle(renderer, var2, var3, var7, var4, var5, var6);
 				}
 
-				var10.draw();
+				tess.draw();
 			}
 		}
 
@@ -81,8 +85,9 @@ public class EffectRenderer {
 	public void renderLitParticles(Entity var1, float var2) {
 		byte var3 = 2;
 		if(this.fxLayers[var3].size() != 0) {
-			Tessellator var4 = Tessellator.instance;
-
+			Tessellator tess = Tessellator.getInstance();
+			BufferBuilder var4 = tess.getWorldRenderer();
+			
 			for(int var5 = 0; var5 < this.fxLayers[var3].size(); ++var5) {
 				EntityFX var6 = (EntityFX)this.fxLayers[var3].get(var5);
 				var6.renderParticle(var4, var2, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);

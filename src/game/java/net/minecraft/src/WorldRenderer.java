@@ -5,10 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import org.lwjgl.opengl.GL11;
 
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
+
 public class WorldRenderer {
 	public World worldObj;
 	private int glRenderList = -1;
-	private static Tessellator tessellator = Tessellator.instance;
 	public static int chunksUpdated = 0;
 	public int posX;
 	public int posY;
@@ -67,20 +71,18 @@ public class WorldRenderer {
 			this.posZMinus = var3 - this.posZClip;
 			float var4 = 2.0F;
 			this.rendererBoundingBox = AxisAlignedBB.getBoundingBox((double)((float)var1 - var4), (double)((float)var2 - var4), (double)((float)var3 - var4), (double)((float)(var1 + this.sizeWidth) + var4), (double)((float)(var2 + this.sizeHeight) + var4), (double)((float)(var3 + this.sizeDepth) + var4));
-			GL11.glNewList(this.glRenderList + 2, GL11.GL_COMPILE);
-			RenderItem.renderAABB(AxisAlignedBB.getBoundingBoxFromPool((double)((float)this.posXClip - var4), (double)((float)this.posYClip - var4), (double)((float)this.posZClip - var4), (double)((float)(this.posXClip + this.sizeWidth) + var4), (double)((float)(this.posYClip + this.sizeHeight) + var4), (double)((float)(this.posZClip + this.sizeDepth) + var4)));
-			GL11.glEndList();
+			//GL11.glNewList(this.glRenderList + 2, RealOpenGLEnums.GL_COMPILE);
+			//RenderItem.renderAABB(AxisAlignedBB.getBoundingBoxFromPool((double)((float)this.posXClip - var4), (double)((float)this.posYClip - var4), (double)((float)this.posZClip - var4), (double)((float)(this.posXClip + this.sizeWidth) + var4), (double)((float)(this.posYClip + this.sizeHeight) + var4), (double)((float)(this.posZClip + this.sizeDepth) + var4)));
+			//GL11.glEndList();
 			this.markDirty();
 		}
-	}
-
-	private void setupGLTranslation() {
-		GL11.glTranslatef((float)this.posXClip, (float)this.posYClip, (float)this.posZClip);
 	}
 
 	public void updateRenderer() {
 		if(this.needsUpdate) {
 			++chunksUpdated;
+			Tessellator tess = Tessellator.getInstance();
+			BufferBuilder renderer = tess.getWorldRenderer();
 			int var1 = this.posX;
 			int var2 = this.posY;
 			int var3 = this.posZ;
@@ -112,15 +114,9 @@ public class WorldRenderer {
 							if(var18 > 0) {
 								if(!var14) {
 									var14 = true;
-									GL11.glNewList(this.glRenderList + var11, GL11.GL_COMPILE);
-									GL11.glPushMatrix();
-									this.setupGLTranslation();
-									float var19 = 1.000001F;
-									GL11.glTranslatef((float)(-this.sizeDepth) / 2.0F, (float)(-this.sizeHeight) / 2.0F, (float)(-this.sizeDepth) / 2.0F);
-									GL11.glScalef(var19, var19, var19);
-									GL11.glTranslatef((float)this.sizeDepth / 2.0F, (float)this.sizeHeight / 2.0F, (float)this.sizeDepth / 2.0F);
-									tessellator.startDrawingQuads();
-									tessellator.setTranslationD((double)(-this.posX), (double)(-this.posY), (double)(-this.posZ));
+									GL11.glNewList(this.glRenderList + var11, RealOpenGLEnums.GL_COMPILE);
+									renderer.begin(7, VertexFormat.POSITION_TEX_COLOR);
+									renderer.setTranslation((double) (this.posXClip-this.posX), (double) (this.posYClip-this.posY), (double) (this.posZClip-this.posZ));
 								}
 
 								if(var11 == 0 && Block.blocksList[var18] instanceof BlockContainer) {
@@ -143,10 +139,9 @@ public class WorldRenderer {
 				}
 
 				if(var14) {
-					tessellator.draw();
-					GL11.glPopMatrix();
+					tess.draw();
 					GL11.glEndList();
-					tessellator.setTranslationD(0.0D, 0.0D, 0.0D);
+					renderer.setTranslation(0.0D, 0.0D, 0.0D);
 				} else {
 					var13 = false;
 				}
@@ -168,6 +163,14 @@ public class WorldRenderer {
 			this.tileEntities.removeAll(var21);
 			this.isChunkLit = Chunk.isLit;
 			this.isInitialized = true;
+			
+			if(skipRenderPass[0]) {
+				GL11.flushDisplayList(glRenderList, true);
+			}
+			
+			if(skipRenderPass[1]) {
+				GL11.flushDisplayList(glRenderList + 1, true);
+			}
 		}
 	}
 
@@ -181,6 +184,8 @@ public class WorldRenderer {
 	public void setDontDraw() {
 		for(int var1 = 0; var1 < 2; ++var1) {
 			this.skipRenderPass[var1] = true;
+			GL11.flushDisplayList(glRenderList, true);
+			GL11.flushDisplayList(glRenderList + 1, true);
 		}
 
 		this.isInFrustum = false;

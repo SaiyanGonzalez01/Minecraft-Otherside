@@ -2,6 +2,10 @@ package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
 
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+
 public class ModelRenderer {
 	private PositionTextureVertex[] corners;
 	private TexturedQuad[] faces;
@@ -118,8 +122,9 @@ public class ModelRenderer {
 
 	private void compileDisplayList(float var1) {
 		this.displayList = GLAllocation.generateDisplayLists(1);
-		GL11.glNewList(this.displayList, GL11.GL_COMPILE);
-		Tessellator var2 = Tessellator.instance;
+		GL11.glNewList(this.displayList, RealOpenGLEnums.GL_COMPILE);
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder var2 = tess.getWorldRenderer();
 
 		for(int var3 = 0; var3 < this.faces.length; ++var3) {
 			this.faces[var3].draw(var2, var1);

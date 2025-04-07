@@ -1,5 +1,7 @@
 package net.minecraft.src;
 
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+
 public class EntitySmokeFX extends EntityFX {
 	float smokeParticleScale;
 
@@ -21,7 +23,7 @@ public class EntitySmokeFX extends EntityFX {
 		this.noClip = false;
 	}
 
-	public void renderParticle(Tessellator var1, float var2, float var3, float var4, float var5, float var6, float var7) {
+	public void renderParticle(BufferBuilder var1, float var2, float var3, float var4, float var5, float var6, float var7) {
 		float var8 = ((float)this.particleAge + var2) / (float)this.particleMaxAge * 32.0F;
 		if(var8 < 0.0F) {
 			var8 = 0.0F;

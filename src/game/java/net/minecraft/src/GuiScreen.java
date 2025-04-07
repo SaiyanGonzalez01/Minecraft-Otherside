@@ -2,9 +2,14 @@ package net.minecraft.src;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+
+import net.lax1dude.eaglercraft.Keyboard;
+import net.lax1dude.eaglercraft.Mouse;
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
+import net.peyton.eagler.minecraft.FontRenderer;
 
 public class GuiScreen extends Gui {
 	protected Minecraft mc;
@@ -114,17 +119,17 @@ public class GuiScreen extends Gui {
 		} else {
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_FOG);
-			Tessellator var2 = Tessellator.instance;
+			Tessellator tess = Tessellator.getInstance();
+			BufferBuilder var2 = tess.getWorldRenderer();
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.mc.renderEngine.getTexture("/dirt.png"));
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			float var3 = 32.0F;
-			var2.startDrawingQuads();
-			var2.setColorOpaque_I(4210752);
-			var2.addVertexWithUV(0.0D, (double)this.height, 0.0D, 0.0D, (double)((float)this.height / var3 + (float)var1));
-			var2.addVertexWithUV((double)this.width, (double)this.height, 0.0D, (double)((float)this.width / var3), (double)((float)this.height / var3 + (float)var1));
-			var2.addVertexWithUV((double)this.width, 0.0D, 0.0D, (double)((float)this.width / var3), (double)(0 + var1));
-			var2.addVertexWithUV(0.0D, 0.0D, 0.0D, 0.0D, (double)(0 + var1));
-			var2.draw();
+			var2.begin(7, VertexFormat.POSITION_TEX_COLOR);
+			var2.posUV(0.0D, (double)this.height, 0.0D, 0.0D, (double)((float)this.height / var3 + (float)var1)).setColorOpaque_I(4210752).endVertex();
+			var2.posUV((double)this.width, (double)this.height, 0.0D, (double)((float)this.width / var3), (double)((float)this.height / var3 + (float)var1)).setColorOpaque_I(4210752).endVertex();
+			var2.posUV((double)this.width, 0.0D, 0.0D, (double)((float)this.width / var3), (double)(0 + var1)).setColorOpaque_I(4210752).endVertex();
+			var2.posUV(0.0D, 0.0D, 0.0D, 0.0D, (double)(0 + var1)).setColorOpaque_I(4210752).endVertex();
+			tess.draw();
 		}
 
 	}

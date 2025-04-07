@@ -1,8 +1,12 @@
 package net.minecraft.src;
 
-import java.util.Random;
+import net.lax1dude.eaglercraft.Random;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
 
 public class RenderPainting extends Render {
 	private Random rand = new Random();
@@ -12,13 +16,13 @@ public class RenderPainting extends Render {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float)var2, (float)var4, (float)var6);
 		GL11.glRotatef(var8, 0.0F, 1.0F, 0.0F);
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glEnable(RealOpenGLEnums.GL_RESCALE_NORMAL);
 		this.loadTexture("/art/kz.png");
 		EnumArt var10 = var1.art;
 		float var11 = 1.0F / 16.0F;
 		GL11.glScalef(var11, var11, var11);
 		this.setSizes(var1, var10.sizeX, var10.sizeY, var10.offsetX, var10.offsetY);
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(RealOpenGLEnums.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
 
@@ -51,39 +55,34 @@ public class RenderPainting extends Render {
 				float var29 = 385.0F / 512.0F;
 				float var30 = 0.0F;
 				float var31 = 1.0F / 16.0F;
-				Tessellator var32 = Tessellator.instance;
-				var32.startDrawingQuads();
-				var32.setNormal(0.0F, 0.0F, -1.0F);
-				var32.addVertexWithUV((double)var12, (double)var15, (double)var8, (double)var17, (double)var18);
-				var32.addVertexWithUV((double)var13, (double)var15, (double)var8, (double)var16, (double)var18);
-				var32.addVertexWithUV((double)var13, (double)var14, (double)var8, (double)var16, (double)var19);
-				var32.addVertexWithUV((double)var12, (double)var14, (double)var8, (double)var17, (double)var19);
-				var32.setNormal(0.0F, 0.0F, 1.0F);
-				var32.addVertexWithUV((double)var12, (double)var14, (double)var9, (double)var20, (double)var22);
-				var32.addVertexWithUV((double)var13, (double)var14, (double)var9, (double)var21, (double)var22);
-				var32.addVertexWithUV((double)var13, (double)var15, (double)var9, (double)var21, (double)var23);
-				var32.addVertexWithUV((double)var12, (double)var15, (double)var9, (double)var20, (double)var23);
-				var32.setNormal(0.0F, -1.0F, 0.0F);
-				var32.addVertexWithUV((double)var12, (double)var14, (double)var8, (double)var24, (double)var26);
-				var32.addVertexWithUV((double)var13, (double)var14, (double)var8, (double)var25, (double)var26);
-				var32.addVertexWithUV((double)var13, (double)var14, (double)var9, (double)var25, (double)var27);
-				var32.addVertexWithUV((double)var12, (double)var14, (double)var9, (double)var24, (double)var27);
-				var32.setNormal(0.0F, 1.0F, 0.0F);
-				var32.addVertexWithUV((double)var12, (double)var15, (double)var9, (double)var24, (double)var26);
-				var32.addVertexWithUV((double)var13, (double)var15, (double)var9, (double)var25, (double)var26);
-				var32.addVertexWithUV((double)var13, (double)var15, (double)var8, (double)var25, (double)var27);
-				var32.addVertexWithUV((double)var12, (double)var15, (double)var8, (double)var24, (double)var27);
-				var32.setNormal(-1.0F, 0.0F, 0.0F);
-				var32.addVertexWithUV((double)var12, (double)var14, (double)var9, (double)var29, (double)var30);
-				var32.addVertexWithUV((double)var12, (double)var15, (double)var9, (double)var29, (double)var31);
-				var32.addVertexWithUV((double)var12, (double)var15, (double)var8, (double)var28, (double)var31);
-				var32.addVertexWithUV((double)var12, (double)var14, (double)var8, (double)var28, (double)var30);
-				var32.setNormal(1.0F, 0.0F, 0.0F);
-				var32.addVertexWithUV((double)var13, (double)var14, (double)var8, (double)var29, (double)var30);
-				var32.addVertexWithUV((double)var13, (double)var15, (double)var8, (double)var29, (double)var31);
-				var32.addVertexWithUV((double)var13, (double)var15, (double)var9, (double)var28, (double)var31);
-				var32.addVertexWithUV((double)var13, (double)var14, (double)var9, (double)var28, (double)var30);
-				var32.draw();
+				Tessellator tess = Tessellator.getInstance();
+				BufferBuilder var32 = tess.getWorldRenderer();
+				var32.begin(7, VertexFormat.POSITION_TEX_NORMAL);
+				var32.posUV((double)var12, (double)var15, (double)var8, (double)var17, (double)var18).normal(0.0F, 0.0F, -1.0F).endVertex();
+				var32.posUV((double)var13, (double)var15, (double)var8, (double)var16, (double)var18).normal(0.0F, 0.0F, -1.0F).endVertex();
+				var32.posUV((double)var13, (double)var14, (double)var8, (double)var16, (double)var19).normal(0.0F, 0.0F, -1.0F).endVertex();
+				var32.posUV((double)var12, (double)var14, (double)var8, (double)var17, (double)var19).normal(0.0F, 0.0F, -1.0F).endVertex();
+				var32.posUV((double)var12, (double)var14, (double)var9, (double)var20, (double)var22).normal(0.0F, 0.0F, 1.0F).endVertex();
+				var32.posUV((double)var13, (double)var14, (double)var9, (double)var21, (double)var22).normal(0.0F, 0.0F, 1.0F).endVertex();
+				var32.posUV((double)var13, (double)var15, (double)var9, (double)var21, (double)var23).normal(0.0F, 0.0F, 1.0F).endVertex();
+				var32.posUV((double)var12, (double)var15, (double)var9, (double)var20, (double)var23).normal(0.0F, 0.0F, 1.0F).endVertex();
+				var32.posUV((double)var12, (double)var14, (double)var8, (double)var24, (double)var26).normal(0.0F, -1.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var14, (double)var8, (double)var25, (double)var26).normal(0.0F, -1.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var14, (double)var9, (double)var25, (double)var27).normal(0.0F, -1.0F, 0.0F).endVertex();
+				var32.posUV((double)var12, (double)var14, (double)var9, (double)var24, (double)var27).normal(0.0F, -1.0F, 0.0F).endVertex();
+				var32.posUV((double)var12, (double)var15, (double)var9, (double)var24, (double)var26).normal(0.0F, 1.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var15, (double)var9, (double)var25, (double)var26).normal(0.0F, 1.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var15, (double)var8, (double)var25, (double)var27).normal(0.0F, 1.0F, 0.0F).endVertex();
+				var32.posUV((double)var12, (double)var15, (double)var8, (double)var24, (double)var27).normal(0.0F, 1.0F, 0.0F).endVertex();
+				var32.posUV((double)var12, (double)var14, (double)var9, (double)var29, (double)var30).normal(-1.0F, 0.0F, 0.0F).endVertex();
+				var32.posUV((double)var12, (double)var15, (double)var9, (double)var29, (double)var31).normal(-1.0F, 0.0F, 0.0F).endVertex();
+				var32.posUV((double)var12, (double)var15, (double)var8, (double)var28, (double)var31).normal(-1.0F, 0.0F, 0.0F).endVertex();
+				var32.posUV((double)var12, (double)var14, (double)var8, (double)var28, (double)var30).normal(-1.0F, 0.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var14, (double)var8, (double)var29, (double)var30).normal(1.0F, 0.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var15, (double)var8, (double)var29, (double)var31).normal(1.0F, 0.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var15, (double)var9, (double)var28, (double)var31).normal(1.0F, 0.0F, 0.0F).endVertex();
+				var32.posUV((double)var13, (double)var14, (double)var9, (double)var28, (double)var30).normal(1.0F, 0.0F, 0.0F).endVertex();
+				tess.draw();
 			}
 		}
 

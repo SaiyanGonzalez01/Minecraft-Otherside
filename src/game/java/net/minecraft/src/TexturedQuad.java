@@ -1,5 +1,9 @@
 package net.minecraft.src;
 
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
+
 public class TexturedQuad {
 	public PositionTextureVertex[] vertexPositions;
 	public int nVertices;
@@ -30,18 +34,17 @@ public class TexturedQuad {
 		this.vertexPositions = var1;
 	}
 
-	public void draw(Tessellator var1, float var2) {
+	public void draw(BufferBuilder var1, float var2) {
 		Vec3D var3 = this.vertexPositions[1].vector3D.subtract(this.vertexPositions[0].vector3D);
 		Vec3D var4 = this.vertexPositions[1].vector3D.subtract(this.vertexPositions[2].vector3D);
 		Vec3D var5 = var4.crossProduct(var3).normalize();
-		var1.startDrawingQuads();
-		var1.setNormal((float)var5.xCoord, (float)var5.yCoord, (float)var5.zCoord);
+		var1.begin(7, VertexFormat.POSITION_TEX_NORMAL);
 
 		for(int var6 = 0; var6 < 4; ++var6) {
 			PositionTextureVertex var7 = this.vertexPositions[var6];
-			var1.addVertexWithUV((double)((float)var7.vector3D.xCoord * var2), (double)((float)var7.vector3D.yCoord * var2), (double)((float)var7.vector3D.zCoord * var2), (double)var7.texturePositionX, (double)var7.texturePositionY);
+			var1.posUV((double)((float)var7.vector3D.xCoord * var2), (double)((float)var7.vector3D.yCoord * var2), (double)((float)var7.vector3D.zCoord * var2), (double)var7.texturePositionX, (double)var7.texturePositionY).normal((float)var5.xCoord, (float)var5.yCoord, (float)var5.zCoord).endVertex();
 		}
 
-		var1.draw();
+		Tessellator.getInstance().draw();
 	}
 }

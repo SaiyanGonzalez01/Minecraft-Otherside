@@ -1,7 +1,5 @@
 package net.minecraft.src;
 
-import java.io.File;
-
 public class GuiCreateWorld extends GuiScreen {
 	protected GuiScreen parentGuiScreen;
 	protected String screenHeader = "Select world";
@@ -12,10 +10,9 @@ public class GuiCreateWorld extends GuiScreen {
 	}
 
 	public void initGui() {
-		File var1 = Minecraft.getMinecraftDir();
-
+		this.controlList.clear();
 		for(int var2 = 0; var2 < 5; ++var2) {
-			NBTTagCompound var3 = World.getLevelData(var1, "World" + (var2 + 1));
+			NBTTagCompound var3 = World.getLevelData("World" + (var2 + 1));
 			if(var3 == null) {
 				this.controlList.add(new GuiButton(var2, this.width / 2 - 100, this.height / 6 + 24 * var2, "- empty -"));
 			} else {
@@ -30,8 +27,7 @@ public class GuiCreateWorld extends GuiScreen {
 	}
 
 	protected String getSaveFileName(int var1) {
-		File var2 = Minecraft.getMinecraftDir();
-		return World.getLevelData(var2, "World" + var1) != null ? "World" + var1 : null;
+		return World.getLevelData("World" + var1) != null ? "World" + var1 : null;
 	}
 
 	public void initButtons() {

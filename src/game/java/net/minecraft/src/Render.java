@@ -2,6 +2,11 @@ package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
 
+import net.lax1dude.eaglercraft.opengl.BufferBuilder;
+import net.lax1dude.eaglercraft.opengl.RealOpenGLEnums;
+import net.lax1dude.eaglercraft.opengl.Tessellator;
+import net.lax1dude.eaglercraft.opengl.VertexFormat;
+
 public abstract class Render {
 	protected RenderManager renderManager;
 	private ModelBase modelBase = new ModelBiped();
@@ -22,7 +27,7 @@ public abstract class Render {
 	}
 
 	private void renderEntityOnFire(Entity var1, double var2, double var4, double var6, float var8) {
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(RealOpenGLEnums.GL_LIGHTING);
 		int var9 = Block.fire.blockIndexInTexture;
 		int var10 = (var9 & 15) << 4;
 		int var11 = var9 & 240;
@@ -35,7 +40,8 @@ public abstract class Render {
 		float var16 = var1.width * 1.4F;
 		GL11.glScalef(var16, var16, var16);
 		this.loadTexture("/terrain.png");
-		Tessellator var17 = Tessellator.instance;
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder var17 = tess.getWorldRenderer();
 		float var18 = 1.0F;
 		float var19 = 0.5F;
 		float var20 = 0.0F;
@@ -43,27 +49,27 @@ public abstract class Render {
 		GL11.glRotatef(-this.renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
 		GL11.glTranslatef(0.0F, 0.0F, 0.4F + (float)((int)var21) * 0.02F);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		var17.startDrawingQuads();
+		var17.begin(7, VertexFormat.POSITION_TEX);
 
 		while(var21 > 0.0F) {
-			var17.addVertexWithUV((double)(var18 - var19), (double)(0.0F - var20), 0.0D, (double)var13, (double)var15);
-			var17.addVertexWithUV((double)(0.0F - var19), (double)(0.0F - var20), 0.0D, (double)var12, (double)var15);
-			var17.addVertexWithUV((double)(0.0F - var19), (double)(1.4F - var20), 0.0D, (double)var12, (double)var14);
-			var17.addVertexWithUV((double)(var18 - var19), (double)(1.4F - var20), 0.0D, (double)var13, (double)var14);
+			var17.posUV((double)(var18 - var19), (double)(0.0F - var20), 0.0D, (double)var13, (double)var15).endVertex();
+			var17.posUV((double)(0.0F - var19), (double)(0.0F - var20), 0.0D, (double)var12, (double)var15).endVertex();
+			var17.posUV((double)(0.0F - var19), (double)(1.4F - var20), 0.0D, (double)var12, (double)var14).endVertex();
+			var17.posUV((double)(var18 - var19), (double)(1.4F - var20), 0.0D, (double)var13, (double)var14).endVertex();
 			--var21;
 			--var20;
 			var18 *= 0.9F;
 			GL11.glTranslatef(0.0F, 0.0F, -0.04F);
 		}
 
-		var17.draw();
+		tess.draw();
 		GL11.glPopMatrix();
-		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(RealOpenGLEnums.GL_LIGHTING);
 	}
 
 	private void renderShadow(Entity var1, double var2, double var4, double var6, float var8, float var9) {
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(RealOpenGLEnums.GL_BLEND);
+		GL11.glBlendFunc(RealOpenGLEnums.GL_SRC_ALPHA, RealOpenGLEnums.GL_ONE_MINUS_SRC_ALPHA);
 		RenderEngine var10 = this.renderManager.renderEngine;
 		var10.bindTexture(var10.getTexture("%%/shadow.png"));
 		World var11 = this.getWorldFromRenderManager();
@@ -81,8 +87,6 @@ public abstract class Render {
 		double var25 = var2 - var13;
 		double var27 = var4 - var15;
 		double var29 = var6 - var17;
-		Tessellator var31 = Tessellator.instance;
-		var31.startDrawingQuads();
 
 		for(int var32 = var19; var32 <= var20; ++var32) {
 			for(int var33 = var21; var33 <= var22; ++var33) {
@@ -95,9 +99,8 @@ public abstract class Render {
 			}
 		}
 
-		var31.draw();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glDisable(GL11.GL_BLEND);
+		GL11.glDisable(RealOpenGLEnums.GL_BLEND);
 		GL11.glDepthMask(true);
 	}
 
@@ -106,7 +109,8 @@ public abstract class Render {
 	}
 
 	private void renderShadowOnBlock(Block var1, double var2, double var4, double var6, int var8, int var9, int var10, float var11, float var12, double var13, double var15, double var17) {
-		Tessellator var19 = Tessellator.instance;
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder var19 = tess.getWorldRenderer();
 		if(var1.renderAsNormalBlock()) {
 			double var20 = ((double)var11 - (var4 - ((double)var9 + var15)) / 2.0D) * 0.5D * (double)this.getWorldFromRenderManager().getBrightness(var8, var9, var10);
 			if(var20 >= 0.0D) {
@@ -114,7 +118,6 @@ public abstract class Render {
 					var20 = 1.0D;
 				}
 
-				var19.setColorRGBA_F(1.0F, 1.0F, 1.0F, (float)var20);
 				double var22 = (double)var8 + var1.minX + var13;
 				double var24 = (double)var8 + var1.maxX + var13;
 				double var26 = (double)var9 + var1.minY + var15 + 1.0D / 64.0D;
@@ -124,83 +127,81 @@ public abstract class Render {
 				float var33 = (float)((var2 - var24) / 2.0D / (double)var12 + 0.5D);
 				float var34 = (float)((var6 - var28) / 2.0D / (double)var12 + 0.5D);
 				float var35 = (float)((var6 - var30) / 2.0D / (double)var12 + 0.5D);
-				var19.addVertexWithUV(var22, var26, var28, (double)var32, (double)var34);
-				var19.addVertexWithUV(var22, var26, var30, (double)var32, (double)var35);
-				var19.addVertexWithUV(var24, var26, var30, (double)var33, (double)var35);
-				var19.addVertexWithUV(var24, var26, var28, (double)var33, (double)var34);
+				var19.begin(7, VertexFormat.POSITION_TEX_COLOR);
+				var19.posUV(var22, var26, var28, (double)var32, (double)var34).setColorRGBA_F(1.0F, 1.0F, 1.0F, (float)var20).endVertex();
+				var19.posUV(var22, var26, var30, (double)var32, (double)var35).setColorRGBA_F(1.0F, 1.0F, 1.0F, (float)var20).endVertex();
+				var19.posUV(var24, var26, var30, (double)var33, (double)var35).setColorRGBA_F(1.0F, 1.0F, 1.0F, (float)var20).endVertex();
+				var19.posUV(var24, var26, var28, (double)var33, (double)var34).setColorRGBA_F(1.0F, 1.0F, 1.0F, (float)var20).endVertex();
+				tess.draw();
 			}
 		}
 	}
 
 	public static void renderOffsetAABB(AxisAlignedBB var0, double var1, double var3, double var5) {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		Tessellator var7 = Tessellator.instance;
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder var7 = tess.getWorldRenderer();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		var7.startDrawingQuads();
-		var7.setTranslationD(var1, var3, var5);
-		var7.setNormal(0.0F, 0.0F, -1.0F);
-		var7.addVertex(var0.minX, var0.maxY, var0.minZ);
-		var7.addVertex(var0.maxX, var0.maxY, var0.minZ);
-		var7.addVertex(var0.maxX, var0.minY, var0.minZ);
-		var7.addVertex(var0.minX, var0.minY, var0.minZ);
-		var7.setNormal(0.0F, 0.0F, 1.0F);
-		var7.addVertex(var0.minX, var0.minY, var0.maxZ);
-		var7.addVertex(var0.maxX, var0.minY, var0.maxZ);
-		var7.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-		var7.addVertex(var0.minX, var0.maxY, var0.maxZ);
-		var7.setNormal(0.0F, -1.0F, 0.0F);
-		var7.addVertex(var0.minX, var0.minY, var0.minZ);
-		var7.addVertex(var0.maxX, var0.minY, var0.minZ);
-		var7.addVertex(var0.maxX, var0.minY, var0.maxZ);
-		var7.addVertex(var0.minX, var0.minY, var0.maxZ);
-		var7.setNormal(0.0F, 1.0F, 0.0F);
-		var7.addVertex(var0.minX, var0.maxY, var0.maxZ);
-		var7.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-		var7.addVertex(var0.maxX, var0.maxY, var0.minZ);
-		var7.addVertex(var0.minX, var0.maxY, var0.minZ);
-		var7.setNormal(-1.0F, 0.0F, 0.0F);
-		var7.addVertex(var0.minX, var0.minY, var0.maxZ);
-		var7.addVertex(var0.minX, var0.maxY, var0.maxZ);
-		var7.addVertex(var0.minX, var0.maxY, var0.minZ);
-		var7.addVertex(var0.minX, var0.minY, var0.minZ);
-		var7.setNormal(1.0F, 0.0F, 0.0F);
-		var7.addVertex(var0.maxX, var0.minY, var0.minZ);
-		var7.addVertex(var0.maxX, var0.maxY, var0.minZ);
-		var7.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-		var7.addVertex(var0.maxX, var0.minY, var0.maxZ);
-		var7.setTranslationD(0.0D, 0.0D, 0.0D);
-		var7.draw();
+		var7.begin(7, VertexFormat.POSITION_NORMAL);
+		var7.setTranslation(var1, var3, var5);
+		var7.pos(var0.minX, var0.maxY, var0.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
+		var7.pos(var0.maxX, var0.maxY, var0.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
+		var7.pos(var0.maxX, var0.minY, var0.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
+		var7.pos(var0.minX, var0.minY, var0.minZ).normal(0.0F, 0.0F, -1.0F).endVertex();
+		var7.pos(var0.minX, var0.minY, var0.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
+		var7.pos(var0.maxX, var0.minY, var0.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
+		var7.pos(var0.maxX, var0.maxY, var0.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
+		var7.pos(var0.minX, var0.maxY, var0.maxZ).normal(0.0F, 0.0F, 1.0F).endVertex();
+		var7.pos(var0.minX, var0.minY, var0.minZ).normal(0.0F, -1.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.minY, var0.minZ).normal(0.0F, -1.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.minY, var0.maxZ).normal(0.0F, -1.0F, 0.0F).endVertex();
+		var7.pos(var0.minX, var0.minY, var0.maxZ).normal(0.0F, -1.0F, 0.0F).endVertex();
+		var7.pos(var0.minX, var0.maxY, var0.maxZ).normal(0.0F, 1.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.maxY, var0.maxZ).normal(0.0F, 1.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.maxY, var0.minZ).normal(0.0F, 1.0F, 0.0F).endVertex();
+		var7.pos(var0.minX, var0.maxY, var0.minZ).normal(0.0F, 1.0F, 0.0F).endVertex();
+		var7.pos(var0.minX, var0.minY, var0.maxZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
+		var7.pos(var0.minX, var0.maxY, var0.maxZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
+		var7.pos(var0.minX, var0.maxY, var0.minZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
+		var7.pos(var0.minX, var0.minY, var0.minZ).normal(-1.0F, 0.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.minY, var0.minZ).normal(1.0F, 0.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.maxY, var0.minZ).normal(1.0F, 0.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.maxY, var0.maxZ).normal(1.0F, 0.0F, 0.0F).endVertex();
+		var7.pos(var0.maxX, var0.minY, var0.maxZ).normal(1.0F, 0.0F, 0.0F).endVertex();
+		var7.setTranslation(0.0D, 0.0D, 0.0D);
+		tess.draw();
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 	}
 
 	public static void renderAABB(AxisAlignedBB var0) {
-		Tessellator var1 = Tessellator.instance;
-		var1.startDrawingQuads();
-		var1.addVertex(var0.minX, var0.maxY, var0.minZ);
-		var1.addVertex(var0.maxX, var0.maxY, var0.minZ);
-		var1.addVertex(var0.maxX, var0.minY, var0.minZ);
-		var1.addVertex(var0.minX, var0.minY, var0.minZ);
-		var1.addVertex(var0.minX, var0.minY, var0.maxZ);
-		var1.addVertex(var0.maxX, var0.minY, var0.maxZ);
-		var1.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-		var1.addVertex(var0.minX, var0.maxY, var0.maxZ);
-		var1.addVertex(var0.minX, var0.minY, var0.minZ);
-		var1.addVertex(var0.maxX, var0.minY, var0.minZ);
-		var1.addVertex(var0.maxX, var0.minY, var0.maxZ);
-		var1.addVertex(var0.minX, var0.minY, var0.maxZ);
-		var1.addVertex(var0.minX, var0.maxY, var0.maxZ);
-		var1.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-		var1.addVertex(var0.maxX, var0.maxY, var0.minZ);
-		var1.addVertex(var0.minX, var0.maxY, var0.minZ);
-		var1.addVertex(var0.minX, var0.minY, var0.maxZ);
-		var1.addVertex(var0.minX, var0.maxY, var0.maxZ);
-		var1.addVertex(var0.minX, var0.maxY, var0.minZ);
-		var1.addVertex(var0.minX, var0.minY, var0.minZ);
-		var1.addVertex(var0.maxX, var0.minY, var0.minZ);
-		var1.addVertex(var0.maxX, var0.maxY, var0.minZ);
-		var1.addVertex(var0.maxX, var0.maxY, var0.maxZ);
-		var1.addVertex(var0.maxX, var0.minY, var0.maxZ);
-		var1.draw();
+		Tessellator tess = Tessellator.getInstance();
+		BufferBuilder var1 = tess.getWorldRenderer();
+		var1.begin(7, VertexFormat.POSITION);
+		var1.pos(var0.minX, var0.maxY, var0.minZ).endVertex();
+		var1.pos(var0.maxX, var0.maxY, var0.minZ).endVertex();
+		var1.pos(var0.maxX, var0.minY, var0.minZ).endVertex();
+		var1.pos(var0.minX, var0.minY, var0.minZ).endVertex();
+		var1.pos(var0.minX, var0.minY, var0.maxZ).endVertex();
+		var1.pos(var0.maxX, var0.minY, var0.maxZ).endVertex();
+		var1.pos(var0.maxX, var0.maxY, var0.maxZ).endVertex();
+		var1.pos(var0.minX, var0.maxY, var0.maxZ).endVertex();
+		var1.pos(var0.minX, var0.minY, var0.minZ).endVertex();
+		var1.pos(var0.maxX, var0.minY, var0.minZ).endVertex();
+		var1.pos(var0.maxX, var0.minY, var0.maxZ).endVertex();
+		var1.pos(var0.minX, var0.minY, var0.maxZ).endVertex();
+		var1.pos(var0.minX, var0.maxY, var0.maxZ).endVertex();
+		var1.pos(var0.maxX, var0.maxY, var0.maxZ).endVertex();
+		var1.pos(var0.maxX, var0.maxY, var0.minZ).endVertex();
+		var1.pos(var0.minX, var0.maxY, var0.minZ).endVertex();
+		var1.pos(var0.minX, var0.minY, var0.maxZ).endVertex();
+		var1.pos(var0.minX, var0.maxY, var0.maxZ).endVertex();
+		var1.pos(var0.minX, var0.maxY, var0.minZ).endVertex();
+		var1.pos(var0.minX, var0.minY, var0.minZ).endVertex();
+		var1.pos(var0.maxX, var0.minY, var0.minZ).endVertex();
+		var1.pos(var0.maxX, var0.maxY, var0.minZ).endVertex();
+		var1.pos(var0.maxX, var0.maxY, var0.maxZ).endVertex();
+		var1.pos(var0.maxX, var0.minY, var0.maxZ).endVertex();
+		tess.draw();
 	}
 
 	public void setRenderManager(RenderManager var1) {

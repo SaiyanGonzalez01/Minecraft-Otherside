@@ -3,12 +3,14 @@ package net.minecraft.src;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EntityList {
-	private static Map stringToClassMapping = new HashMap();
-	private static Map classToStringMapping = new HashMap();
+import net.peyton.eagler.minecraft.EntityConstructor;
 
-	private static void addMapping(Class var0, String var1) {
-		stringToClassMapping.put(var1, var0);
+public class EntityList {
+	private static Map<String, EntityConstructor> stringToClassMapping = new HashMap();
+	private static Map classToStringMapping = new HashMap();
+	
+	private static void addMapping(Class var0, String var1, EntityConstructor entity) {
+		stringToClassMapping.put(var1, entity);
 		classToStringMapping.put(var0, var1);
 	}
 
@@ -16,9 +18,9 @@ public class EntityList {
 		Entity var2 = null;
 
 		try {
-			Class var3 = (Class)stringToClassMapping.get(var0);
+			EntityConstructor var3 = (EntityConstructor)stringToClassMapping.get(var0);
 			if(var3 != null) {
-				var2 = (Entity)var3.getConstructor(new Class[]{World.class}).newInstance(new Object[]{var1});
+				var2 = var3.createEntity(var1);
 			}
 		} catch (Exception var4) {
 			var4.printStackTrace();
@@ -31,9 +33,9 @@ public class EntityList {
 		Entity var2 = null;
 
 		try {
-			Class var3 = (Class)stringToClassMapping.get(var0.getString("id"));
+			EntityConstructor var3 = (EntityConstructor)stringToClassMapping.get(var0.getString("id"));
 			if(var3 != null) {
-				var2 = (Entity)var3.getConstructor(new Class[]{World.class}).newInstance(new Object[]{var1});
+				var2 = var3.createEntity(var1);
 			}
 		} catch (Exception var4) {
 			var4.printStackTrace();
@@ -53,20 +55,20 @@ public class EntityList {
 	}
 
 	static {
-		addMapping(EntityArrow.class, "Arrow");
-		addMapping(EntityItem.class, "Item");
-		addMapping(EntityPainting.class, "Painting");
-		addMapping(EntityLiving.class, "Mob");
-		addMapping(EntityMonster.class, "Monster");
-		addMapping(EntityCreeper.class, "Creeper");
-		addMapping(EntitySkeleton.class, "Skeleton");
-		addMapping(EntitySpider.class, "Spider");
-		addMapping(EntityGiant.class, "Giant");
-		addMapping(EntityZombie.class, "Zombie");
-		addMapping(EntityPig.class, "Pig");
-		addMapping(EntitySheep.class, "Sheep");
-		addMapping(EntityTNTPrimed.class, "PrimedTnt");
-		addMapping(EntityFallingSand.class, "FallingSand");
-		addMapping(EntityMinecart.class, "Minecart");
+		addMapping(EntityArrow.class, "Arrow", EntityArrow::new);
+		addMapping(EntityItem.class, "Item", EntityItem::new);
+		addMapping(EntityPainting.class, "Painting", EntityPainting::new);
+		addMapping(EntityLiving.class, "Mob", EntityLiving::new);
+		addMapping(EntityMonster.class, "Monster", EntityMonster::new);
+		addMapping(EntityCreeper.class, "Creeper", EntityCreeper::new);
+		addMapping(EntitySkeleton.class, "Skeleton", EntitySkeleton::new);
+		addMapping(EntitySpider.class, "Spider", EntitySpider::new);
+		addMapping(EntityGiant.class, "Giant", EntityGiant::new);
+		addMapping(EntityZombie.class, "Zombie", EntityZombie::new);
+		addMapping(EntityPig.class, "Pig", EntityPig::new);
+		addMapping(EntitySheep.class, "Sheep", EntitySheep::new);
+		addMapping(EntityTNTPrimed.class, "PrimedTnt", EntityTNTPrimed::new);
+		addMapping(EntityFallingSand.class, "FallingSand", EntityFallingSand::new);
+		addMapping(EntityMinecart.class, "Minecart", EntityMinecart::new);
 	}
 }
