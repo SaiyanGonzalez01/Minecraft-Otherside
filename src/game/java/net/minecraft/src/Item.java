@@ -79,6 +79,7 @@ public class Item {
 	public static Item bucketLava = (new ItemBucket(71, Block.lavaMoving.blockID)).setIconIndex(76);
 	public static Item minecart = (new ItemMinecart(72)).setIconIndex(135);
 	public static Item saddle = (new ItemSaddle(73)).setIconIndex(104);
+	public static Item ingotCopper = (new Item(74)).setIconIndex(54);
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
 	protected int maxDamage = 32;
