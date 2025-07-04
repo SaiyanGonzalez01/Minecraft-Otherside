@@ -140,7 +140,7 @@ public class GuiIngame extends Gui {
 		RenderHelper.disableStandardItemLighting();
 		GL11.glDisable(GL11.GL_RESCALE_NORMAL);
 		if(this.mc.gameSettings.showFPS) {
-			var8.drawStringWithShadow("Minecraft Infdev (" + this.mc.debug + ")", 2, 2, 16777215);
+			var8.drawStringWithShadow("Minecraft Otherside EARLYALPHA (" + this.mc.debug + ")", 2, 2, 16777215);
 			var8.drawStringWithShadow(this.mc.debugInfoRenders(), 2, 12, 16777215);
 			var8.drawStringWithShadow(this.mc.getEntityDebug(), 2, 22, 16777215);
 			var8.drawStringWithShadow(this.mc.debugInfoEntities(), 2, 32, 16777215);
