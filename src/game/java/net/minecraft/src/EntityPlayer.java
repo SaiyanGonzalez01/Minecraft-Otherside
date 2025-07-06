@@ -214,6 +214,9 @@ public class EntityPlayer extends EntityLiving {
 	public void displayGUIEditSign(TileEntitySign var1) {
 	}
 
+	public void displayGUIBlastFurnace(TileEntityBlastFurnace var1) {
+	}
+
 	public void interactWithEntity(Entity var1) {
 	}
 }
