@@ -81,6 +81,7 @@ public class Item {
 	public static Item saddle = (new ItemSaddle(73)).setIconIndex(104);
 	public static Item ingotCopper = (new Item(74)).setIconIndex(54);
 	public static Item alloyBronze = (new Item(75)).setIconIndex(22);
+	public static Item ingotBronze = (new Item(76)).setIconIndex(58);
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
 	protected int maxDamage = 32;
