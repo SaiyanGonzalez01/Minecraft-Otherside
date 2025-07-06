@@ -87,7 +87,7 @@ public class Block {
 	public static final Block minecartTrack = (new BlockMinecartTrack(66, 128)).setHardness(1.0F).setStepSound(soundMetalFootstep);
 	public static final Block stairCompactStone = new BlockStairs(67, cobblestone);
 	public static final Block oreCopper = (new BlockOre(68, 51)).setHardness(3.0F).setResistance(5.0F).setStepSound(soundStoneFootstep);
-	public static final Block blockCopper = (new BlockOreBlock(69, 69)).setHardness(5.0F).setResistance(10.0F).setStepSound(soundMetalFootstep);
+	public static final Block blockCopper = (new BlockOreBlock(69, 85)).setHardness(5.0F).setResistance(10.0F).setStepSound(soundMetalFootstep);
 	public static final Block blastOvenIdle = (new BlockBlastFurnace(70, false)).setHardness(3.5F).setStepSound(soundStoneFootstep);
 	public static final Block blastOvenActive = (new BlockBlastFurnace(71, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(14.0F / 16.0F);
 	public int blockIndexInTexture;
