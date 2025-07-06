@@ -66,6 +66,10 @@ public class EntityPlayerSP extends EntityPlayer {
 		this.mc.displayGuiScreen(new GuiFurnace(this.inventory, var1));
 	}
 
+	public void displayGUIBlastFurnace(TileEntityBlastFurnace var1) {
+		this.mc.displayGuiScreen(new GuiBlastFurnace(this.inventory, var1));
+	}
+
 	public ItemStack getCurrentEquippedItem() {
 		return this.inventory.getCurrentItem();
 	}
