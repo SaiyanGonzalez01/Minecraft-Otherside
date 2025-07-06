@@ -83,6 +83,8 @@ public class Item {
 	public static Item swordCopper = (new ItemSword(75, 2)).setIconIndex(144);
 	public static Item shovelCopper = (new ItemSpade(76, 2)).setIconIndex(160);
 	public static Item pickaxeCopper = (new ItemPickaxe(77, 2)).setIconIndex(176);
+	public static Item axeCopper = (new ItemAxe(78, 2)).setIconIndex(192);
+	public static Item hoeCopper = (new ItemAxe(79, 2)).setIconIndex(208);
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
 	protected int maxDamage = 32;
