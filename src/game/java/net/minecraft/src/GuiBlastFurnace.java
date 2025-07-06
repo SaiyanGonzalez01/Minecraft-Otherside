@@ -5,8 +5,8 @@ import org.lwjgl.opengl.GL11;
 public class GuiBlastFurnace extends GuiContainer {
 	private TileEntityBlastFurnace blastfurnaceInventory;
 
-	public GuiFurnace(InventoryPlayer var1, TileEntityFurnace var2) {
-		this.furnaceInventory = var2;
+	public GuiBlastFurnace(InventoryPlayer var1, TileEntityBlastFurnace var2) {
+		this.blastfurnaceInventory = var2;
 		this.inventorySlots.add(new Slot(this, var2, 0, 56, 17));
 		this.inventorySlots.add(new Slot(this, var2, 1, 56, 53));
 		this.inventorySlots.add(new Slot(this, var2, 2, 116, 35));
