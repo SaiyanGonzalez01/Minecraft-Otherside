@@ -11,21 +11,21 @@ public class ItemTool extends Item {
 		this.toolMaterial = var3;
 		this.blocksEffectiveAgainst = var4;
 		this.maxStackSize = 1;
-		this.maxDamage = 32 << var3;
+		this.maxDamage = 32;
 		if(var3 == 0) {
-			this.maxDamage == 62;
+			this.maxDamage *= 2;
 		}
 		if(var3 == 1) {
-			this.maxDamage == 132;
+			this.maxDamage *= 3;
 		}
 		if(var3 == 2) {
-			this.maxDamage == 226;
+			this.maxDamage *= 5;
 		}
 		if(var3 == 3) {
-			this.maxDamage == 356;
+			this.maxDamage *= 8;
 		}
 		if(var3 == 4) {
-			this.maxDamage == 952;
+			this.maxDamage *= 20;
 		}
 
 		this.efficiencyOnProperMaterial = (float)((var3 + 1) * 2);
