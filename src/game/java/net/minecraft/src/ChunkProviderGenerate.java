@@ -526,6 +526,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
 
 		for(var12 = 0; var12 < 20; ++var12) {
 			var13 = var4 + this.rand.nextInt(16);
+			var14 = this.rand.nextInt(72);
+			var15 = var5 + this.rand.nextInt(16);
+			(new WorldGenMinable(Block.oreCopper.blockID, 8)).generate(this.worldObj, this.rand, var13, var14, var15);
+		}
+
+		for(var12 = 0; var12 < 20; ++var12) {
+			var13 = var4 + this.rand.nextInt(16);
 			var14 = this.rand.nextInt(64);
 			var15 = var5 + this.rand.nextInt(16);
 			(new WorldGenMinable(Block.oreIron.blockID, 8)).generate(this.worldObj, this.rand, var13, var14, var15);
