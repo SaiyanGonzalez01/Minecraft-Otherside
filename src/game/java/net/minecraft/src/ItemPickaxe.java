@@ -1,7 +1,7 @@
 package net.minecraft.src;
 
 public class ItemPickaxe extends ItemTool {
-	private static Block[] blocksEffectiveAgainst = new Block[]{Block.cobblestone, Block.stairDouble, Block.stairSingle, Block.stone, Block.cobblestoneMossy, Block.oreIron, Block.blockSteel, Block.oreCoal, Block.blockGold, Block.oreGold, Block.oreDiamond, Block.blockDiamond, Block.oreCopper, Block.blockCopper};
+	private static Block[] blocksEffectiveAgainst = new Block[]{Block.cobblestone, Block.stairDouble, Block.stairSingle, Block.stone, Block.cobblestoneMossy, Block.oreIron, Block.blockSteel, Block.oreCoal, Block.blockGold, Block.oreGold, Block.oreDiamond, Block.blockDiamond, Block.oreCopper, Block.blockCopper, Block.stoneOvenIdle, Block.stoneOvenActive};
 	private int getHarvestLevel;
 
 	public ItemPickaxe(int var1, int var2) {
