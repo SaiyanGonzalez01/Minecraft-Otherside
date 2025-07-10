@@ -89,6 +89,7 @@ public class Item {
 	public static Item plateCopper = (new ItemArmor(71, 2, 5, 1)).setIconIndex(161);
 	public static Item legsCopper = (new ItemArmor(72, 2, 5, 2)).setIconIndex(177);
 	public static Item bootsCopper = (new ItemArmor(73, 2, 5, 3)).setIconIndex(193);
+	public static Item bottle = (new Item(74)).setIconIndex(194);
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
 	protected int maxDamage = 32;
