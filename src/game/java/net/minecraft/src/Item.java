@@ -21,10 +21,10 @@ public class Item {
 	public static Item shovelWood = (new ItemSpade(13, 0)).setIconIndex(80);
 	public static Item pickaxeWood = (new ItemPickaxe(14, 0)).setIconIndex(96);
 	public static Item axeWood = (new ItemAxe(15, 0)).setIconIndex(112);
-	public static Item swordStone = (new ItemSword(16, 1)).setIconIndex(65);
-	public static Item shovelStone = (new ItemSpade(17, 1)).setIconIndex(81);
-	public static Item pickaxeStone = (new ItemPickaxe(18, 1)).setIconIndex(97);
-	public static Item axeStone = (new ItemAxe(19, 1)).setIconIndex(113);
+	public static Item swordStone = (new ItemSword(16, 1)).setIconIndex(144);
+	public static Item shovelStone = (new ItemSpade(17, 1)).setIconIndex(160);
+	public static Item pickaxeStone = (new ItemPickaxe(18, 1)).setIconIndex(176);
+	public static Item axeStone = (new ItemAxe(19, 1)).setIconIndex(192);
 	public static Item swordDiamond = (new ItemSword(20, 3)).setIconIndex(67);
 	public static Item shovelDiamond = (new ItemSpade(21, 3)).setIconIndex(83);
 	public static Item pickaxeDiamond = (new ItemPickaxe(22, 3)).setIconIndex(99);
@@ -40,7 +40,7 @@ public class Item {
 	public static Item feather = (new Item(32)).setIconIndex(24);
 	public static Item gunpowder = (new Item(33)).setIconIndex(40);
 	public static Item hoeWood = (new ItemHoe(34, 0)).setIconIndex(128);
-	public static Item hoeStone = (new ItemHoe(35, 1)).setIconIndex(129);
+	public static Item hoeStone = (new ItemHoe(35, 1)).setIconIndex(208);
 	public static Item hoeSteel = (new ItemHoe(36, 3)).setIconIndex(130);
 	public static Item hoeDiamond = (new ItemHoe(37, 3)).setIconIndex(131);
 	public static Item hoeGold = (new ItemHoe(38, 4)).setIconIndex(132);
@@ -80,11 +80,6 @@ public class Item {
 	public static Item minecart = (new ItemMinecart(72)).setIconIndex(135);
 	public static Item saddle = (new ItemSaddle(73)).setIconIndex(104);
 	public static Item ingotCopper = (new Item(74)).setIconIndex(54);
-	public static Item swordCopper = (new ItemSword(75, 2)).setIconIndex(144);
-	public static Item shovelCopper = (new ItemSpade(76, 2)).setIconIndex(160);
-	public static Item pickaxeCopper = (new ItemPickaxe(77, 2)).setIconIndex(176);
-	public static Item axeCopper = (new ItemAxe(78, 2)).setIconIndex(192);
-	public static Item hoeCopper = (new ItemAxe(79, 2)).setIconIndex(208);
 	public static Item helmetCopper = (new ItemArmor(70, 2, 5, 0)).setIconIndex(145); 
 	public static Item plateCopper = (new ItemArmor(71, 2, 5, 1)).setIconIndex(161);
 	public static Item legsCopper = (new ItemArmor(72, 2, 5, 2)).setIconIndex(177);
