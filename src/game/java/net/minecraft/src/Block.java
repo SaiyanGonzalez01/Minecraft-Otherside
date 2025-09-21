@@ -90,8 +90,8 @@ public class Block {
 	public static final Block blockCopper = (new BlockOreBlock(69, 85)).setHardness(5.0F).setResistance(10.0F).setStepSound(soundMetalFootstep);
 	public static final Block blastOvenIdle = (new BlockBlastFurnace(70, false)).setHardness(3.5F).setStepSound(soundStoneFootstep);
 	public static final Block blastOvenActive = (new BlockBlastFurnace(71, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(14.0F / 16.0F);
-	public static final Block slate = (new BlockStone(72, 66)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep);
-	public static final Block cobbledslate = (new BlockStone(72, 82)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep);
+	public static final Block slate = (new BlockSlate(72, 66)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep);
+	public static final Block cobbledslate = (new Block(72, 82, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep);
 	public int blockIndexInTexture;
 	public final int blockID;
 	protected float blockHardness;
