@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 <meta name="description" content="Eaglercraft Infdev WASM-GC Offline" />
 <meta name="keywords" content="eaglercraft, minecraft, Infdev" />
-<title>Infdev WASM</title>
+<title>Minecraft Otherside</title>
 <meta property="og:locale" content="en-US" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Eaglercraft Infdev WASM-GC Offline" />
