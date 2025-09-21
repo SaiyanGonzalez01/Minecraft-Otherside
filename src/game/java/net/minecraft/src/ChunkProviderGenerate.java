@@ -552,6 +552,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			(new WorldGenMinable(Block.oreDiamond.blockID, 8)).generate(this.worldObj, this.rand, var12, var13, var14);
 		}
 
+		for(var12 = 0; var12 < 20; ++var12) {
+			var13 = var4 + this.rand.nextInt(16);
+			var14 = this.rand.nextInt(10);
+			var15 = var5 + this.rand.nextInt(16);
+			(new WorldGenMinable(Block.slate.blockID, 32)).generate(this.worldObj, this.rand, var13, var14, var15);
+		}
+
 		var10 = 0.5D;
 		var12 = (int)((this.mobSpawnerNoise.generateNoiseOctaves((double)var4 * var10, (double)var5 * var10) / 8.0D + this.rand.nextDouble() * 4.0D + 4.0D) / 3.0D);
 		if(var12 < 0) {
