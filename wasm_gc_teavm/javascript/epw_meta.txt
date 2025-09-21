@@ -1,8 +1,8 @@
-client-version-integer=50
+client-version-integer=1
 client-package-name=net.lax1dude.eaglercraft.v1_8.client
-client-origin-name=EaglercraftX
-client-origin-version=u50
-client-origin-vendor=lax1dude
-client-fork-name=EaglercraftX
-client-fork-version=u50
-client-fork-vendor=lax1dude
+client-origin-name=OthersideDX
+client-origin-version=u1
+client-origin-vendor=SaiyanGonzalez01
+client-fork-name=OthersideDX
+client-fork-version=u1
+client-fork-vendor=SaiyanGonzalez
