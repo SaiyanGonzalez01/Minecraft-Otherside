@@ -80,11 +80,11 @@ public class Item {
 	public static Item minecart = (new ItemMinecart(72)).setIconIndex(135);
 	public static Item saddle = (new ItemSaddle(73)).setIconIndex(104);
 	public static Item ingotCopper = (new Item(74)).setIconIndex(54);
-	public static Item helmetCopper = (new ItemArmor(70, 1, 5, 0)).setIconIndex(145); 
-	public static Item plateCopper = (new ItemArmor(71, 1, 5, 1)).setIconIndex(161);
-	public static Item legsCopper = (new ItemArmor(72, 1, 5, 2)).setIconIndex(177);
-	public static Item bootsCopper = (new ItemArmor(73, 1, 5, 3)).setIconIndex(193);
-	public static Item bottle = (new Item(74)).setIconIndex(194);
+	public static Item helmetCopper = (new ItemArmor(75, 1, 5, 0)).setIconIndex(145); 
+	public static Item plateCopper = (new ItemArmor(76, 1, 5, 1)).setIconIndex(161);
+	public static Item legsCopper = (new ItemArmor(77, 1, 5, 2)).setIconIndex(177);
+	public static Item bootsCopper = (new ItemArmor(78, 1, 5, 3)).setIconIndex(193);
+	public static Item bottle = (new Item(79)).setIconIndex(194);
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
 	protected int maxDamage = 32;
