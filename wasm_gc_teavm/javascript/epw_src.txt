@@ -17,4 +17,4 @@ favicon-image-mime=image/png
 jspi-unavailable-file=enableJSPIScreen.html
 offline-download-template=OfflineDownloadTemplate.txt
 offline-download-script=../javascript_dist/bootstrap.js
-offline-download-name=Infdev_WASM.html
+offline-download-name=Minecraft_Otherside_Portable_WASM.html
