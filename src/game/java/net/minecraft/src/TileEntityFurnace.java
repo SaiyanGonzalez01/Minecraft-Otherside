@@ -180,7 +180,7 @@ public class TileEntityFurnace extends TileEntity implements IInventory {
 			return 0;
 		} else {
 			int var2 = var1.getItem().shiftedIndex;
-			return var2 < 256 && Block.blocksList[var2].blockMaterial == Material.wood ? 300 : (var2 == Item.stick.shiftedIndex ? 100 : (var2 == Item.coal.shiftedIndex ? 1600 : 0));
+			return var2 < 256 && Block.blocksList[var2].blockMaterial == Material.wood ? 300 : (var2 == Item.stick.shiftedIndex ? 100 : (var2 == Item.coal.shiftedIndex ? 1600 : (var2 == Item.charcoal.shiftedIndex ? 1600 : 0 )));
 		}
 	}
 
