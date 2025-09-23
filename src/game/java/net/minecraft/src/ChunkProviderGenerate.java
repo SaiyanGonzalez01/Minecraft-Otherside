@@ -607,6 +607,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			(new WorldGenFlowers(Block.mushroomRed.blockID)).generate(this.worldObj, this.rand, var14, var15, var16);
 		}
 
+		if(this.rand.nextInt(20) == 0) {
+			var14 = var4 + this.rand.nextInt(16) + 8;
+			var15 = this.rand.nextInt(128);
+			var16 = var5 + this.rand.nextInt(16) + 8;
+			(new WorldGenFlowers(Block.grassTall.blockID)).generate(this.worldObj, this.rand, var14, var15, var16);
+		}
+
 		for(var14 = 0; var14 < 50; ++var14) {
 			var15 = var4 + this.rand.nextInt(16) + 8;
 			var16 = this.rand.nextInt(this.rand.nextInt(120) + 8);
@@ -619,13 +626,6 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			var16 = this.rand.nextInt(this.rand.nextInt(this.rand.nextInt(112) + 8) + 8);
 			var17 = var5 + this.rand.nextInt(16) + 8;
 			(new WorldGenLiquids(Block.lavaMoving.blockID)).generate(this.worldObj, this.rand, var15, var16, var17);
-		}
-
-		if(this.rand.nextInt(20) == 0) {
-			var14 = var4 + this.rand.nextInt(16) + 8;
-			var15 = this.rand.nextInt(128);
-			var16 = var5 + this.rand.nextInt(16) + 8;
-			(new WorldGenFlowers(Block.grassTall.blockID)).generate(this.worldObj, this.rand, var14, var15, var16);
 		}
 
 	}
