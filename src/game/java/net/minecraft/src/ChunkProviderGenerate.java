@@ -621,6 +621,13 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			(new WorldGenLiquids(Block.lavaMoving.blockID)).generate(this.worldObj, this.rand, var15, var16, var17);
 		}
 
+		if(this.rand.nextInt(20) == 0) {
+			var14 = var4 + this.rand.nextInt(16) + 8;
+			var15 = this.rand.nextInt(128);
+			var16 = var5 + this.rand.nextInt(16) + 8;
+			(new WorldGenFlowers(Block.grassTall.blockID)).generate(this.worldObj, this.rand, var14, var15, var16);
+		}
+
 	}
 
 	public boolean saveChunks(boolean var1, IProgressUpdate var2) {
