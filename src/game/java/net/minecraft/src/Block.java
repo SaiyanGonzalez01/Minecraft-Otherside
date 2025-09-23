@@ -92,7 +92,7 @@ public class Block {
 	public static final Block blastOvenActive = (new BlockBlastFurnace(71, true)).setHardness(3.5F).setStepSound(soundStoneFootstep).setLightValue(14.0F / 16.0F);
 	public static final Block slate = (new BlockSlate(72, 66)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep);
 	public static final Block cobbledslate = (new Block(73, 82, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep);
-	public static final BlockTallGrass grassTall = (BlockTallGrass)(new BlockTallGrass(74, 14)).setHardness(0.0F).setStepSound(soundGrassFootstep);
+	public static final BlockFlower grassTall = (BlockFlower)(new BlockFlower(74, 14)).setHardness(0.0F).setStepSound(soundGrassFootstep);
 	public int blockIndexInTexture;
 	public final int blockID;
 	protected float blockHardness;
