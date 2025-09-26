@@ -570,11 +570,6 @@ public class ChunkProviderGenerate implements IChunkProvider {
 			++var12;
 		}
 
-		WorldGenTreesBirch var18 = new WorldGenTreesBirch();
-		if(this.rand.nextInt(10) == 0) {
-			++var12;
-		}
-
 		int var16;
 		for(var14 = 0; var14 < var12; ++var14) {
 			var15 = var4 + this.rand.nextInt(16) + 8;
