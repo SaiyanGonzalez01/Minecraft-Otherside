@@ -9,7 +9,7 @@ public class BlockPath extends Block {
 	}
 
 	public int getBlockTextureFromSide(int var1) {
-		return var1 == 1 ? 49 : (var1 == 49 ? 2 : 46);
+		return var1 == 1 ? 49 : (var1 == 47 ? 2 : 46);
 	}
 
 	public int idDropped(int var1, Random var2) {
