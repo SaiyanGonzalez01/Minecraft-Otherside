@@ -31,7 +31,8 @@ public class GameSettings {
 	public KeyBinding keyBindToggleFog = new KeyBinding("Toggle fog", 33);
 	public KeyBinding keyBindSave = new KeyBinding("Save location", 28);
 	public KeyBinding keyBindLoad = new KeyBinding("Load location", 19);
-	public KeyBinding[] keyBindings = new KeyBinding[]{this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindToggleFog, this.keyBindSave, this.keyBindLoad};
+	public KeyBinding keyBindPOV = new KeyBinding("Third Person", 25);
+	public KeyBinding[] keyBindings = new KeyBinding[]{this.keyBindForward, this.keyBindLeft, this.keyBindBack, this.keyBindRight, this.keyBindJump, this.keyBindDrop, this.keyBindInventory, this.keyBindChat, this.keyBindToggleFog, this.keyBindSave, this.keyBindLoad, this.keyBindPOV};
 	protected Minecraft mc;
 	private VFile2 optionsFile;
 	public int numberOfOptions = 10;
