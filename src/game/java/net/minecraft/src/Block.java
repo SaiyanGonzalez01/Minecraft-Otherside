@@ -94,6 +94,7 @@ public class Block {
 	public static final Block cobbledslate = (new Block(73, 82, Material.rock)).setHardness(2.0F).setResistance(10.0F).setStepSound(soundStoneFootstep);
 	public static final BlockFlower grassTall = (BlockFlower)(new BlockFlower(74, 14)).setHardness(0.0F).setStepSound(soundGrassFootstep);
 	public static final Block woodBirch = (new BlockLogBirch(75)).setHardness(2.0F).setStepSound(soundWoodFootstep);
+	public static final Block dirtPath = (new BlockPath(76)).setHardness(0.5F).setStepSound(soundGravelFootstep);
 	public int blockIndexInTexture;
 	public final int blockID;
 	protected float blockHardness;
