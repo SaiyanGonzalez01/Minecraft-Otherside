@@ -646,9 +646,9 @@ public class Minecraft implements Runnable {
 													}
 												}
 
-												if(Keyboard.getEventKey() == Keyboard.KEY_F5) {
+												if(Keyboard.getEventKey() == this.gameSettings.keyBindPOV.keyCode) {
 													this.gameSettings.thirdPersonView = !this.gameSettings.thirdPersonView;
-													this.isRaining = !this.isRaining;
+													
 												}
 
 												if(Keyboard.getEventKey() == this.gameSettings.keyBindInventory.keyCode) {
