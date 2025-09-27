@@ -153,7 +153,7 @@ public class GuiIngame extends Gui {
 			var21 = "Allocated memory: " + var26 * 100L / var22 + "% (" + var26 / 1024L / 1024L + "MB)";
 			this.drawString(var8, var21, var6 - var8.getStringWidth(var21) - 2, 12, 14737632);
 		} else {
-			var8.drawStringWithShadow("Minecraft Otherside EARLYALPHA", 2, 2, 16777215);
+			var8.drawStringWithShadow("Minecraft Otherside Alpha", 2, 2, 16777215);
 		}
 
 		byte var23 = 10;
