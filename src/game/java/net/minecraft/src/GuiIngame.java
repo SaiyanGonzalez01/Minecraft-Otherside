@@ -154,6 +154,9 @@ public class GuiIngame extends Gui {
 			this.drawString(var8, var21, var6 - var8.getStringWidth(var21) - 2, 12, 14737632);
 		} else {
 			var8.drawStringWithShadow("Minecraft Otherside Alpha", 2, 2, 16777215);
+			this.drawString(var8, "X: " + this.mc.thePlayer.posX, 2, 64, 14737632);
+			this.drawString(var8, "Y: " + this.mc.thePlayer.posY, 2, 72, 14737632);
+			this.drawString(var8, "Z: " + this.mc.thePlayer.posZ, 2, 80, 14737632);
 		}
 
 		byte var23 = 10;
