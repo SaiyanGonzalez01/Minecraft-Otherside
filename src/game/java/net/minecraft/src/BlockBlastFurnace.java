@@ -101,6 +101,6 @@ public class BlockBlastFurnace extends BlockContainer {
 	}
 
 	protected TileEntity getBlockEntity() {
-		return new TileEntityFurnace();
+		return new TileEntityBlastFurnace();
 	}
 }
