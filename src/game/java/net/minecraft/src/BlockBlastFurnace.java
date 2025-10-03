@@ -8,7 +8,7 @@ public class BlockBlastFurnace extends BlockContainer {
 	protected BlockBlastFurnace(int var1, boolean var2) {
 		super(var1, Material.rock);
 		this.isActive = var2;
-		this.blockIndexInTexture = 98;
+		this.blockIndexInTexture = 99;
 	}
 
 	public void onBlockAdded(World var1, int var2, int var3, int var4) {
