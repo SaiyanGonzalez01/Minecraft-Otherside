@@ -65,6 +65,7 @@ public class EntityList {
 		addMapping(EntitySpider.class, "Spider", EntitySpider::new);
 		addMapping(EntityGiant.class, "Giant", EntityGiant::new);
 		addMapping(EntityZombie.class, "Zombie", EntityZombie::new);
+		addMapping(EntityGhost.class, "Ghost", EntityGhost::new);
 		addMapping(EntityPig.class, "Pig", EntityPig::new);
 		addMapping(EntitySheep.class, "Sheep", EntitySheep::new);
 		addMapping(EntityTNTPrimed.class, "PrimedTnt", EntityTNTPrimed::new);
