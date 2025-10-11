@@ -6,6 +6,7 @@ public class BlockPath extends Block {
 	protected BlockPath(int var1) {
 		super(var1, Material.ground);
 		this.blockIndexInTexture = 46;
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 15.0F / 16.0F, 1.0F);
 	}
 
 	public int getBlockTextureFromSide(int var1) {
