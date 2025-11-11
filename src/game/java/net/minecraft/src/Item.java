@@ -86,7 +86,7 @@ public class Item {
 	public static Item bootsCopper = (new ItemArmor(78, 1, 5, 3)).setIconIndex(193);
 	public static Item bottle = (new Item(79)).setIconIndex(69);
 	public static Item charcoal = (new Item(80)).setIconIndex(22);
-	public static Item shears = (new Item(81)).setIconIndex(146);
+	public static Item shears = (new ItemShears(81)).setIconIndex(146);
 	public final int shiftedIndex;
 	protected int maxStackSize = 64;
 	protected int maxDamage = 32;
