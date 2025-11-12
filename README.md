@@ -6,4 +6,4 @@ This mod of Eaglercraft Infdev started out as just a personilzed client. It was 
 
 ## Play it!
 
-Play [Recent Update](u)
+Play [Recent Update](https://saiyangonzalez01.github.io/Minecraft-Otherside/javascript/)
